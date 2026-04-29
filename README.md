@@ -68,7 +68,7 @@ https://lyons.software/oceanwatch
 
 ## 📊 Admin Dashboard
 ```
-https://lyons.software/admin
+https://lyons.software/oceanwatch/admin
 ```
 
 ---
@@ -126,5 +126,5 @@ OceanWatch is an AI-assisted monitoring tool. It does **not** replace trained li
 
 ---
 
-*Built with ❤️ on Merritt Island, Florida by Lyons Software*  
+*Built with ❤️ in Merritt Island, Florida by Lyons Software*  
 *Powered by Anthropic Claude Vision AI*
