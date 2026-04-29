@@ -1,75 +1,130 @@
 # 🌊 OceanWatch — AI Water Safety
 
-Real-time drowning detection using Claude Vision AI. Built on the same stack as RipScan.
+**Florida's free AI water safety app** — built by Lyons Software, Merritt Island FL.
 
-## Detection capabilities
-- Person count in water
-- Submersion duration (warning at 5s, critical at 10s)
-- Face-down floating
-- Arm waving / distress signals
-- Water conditions & current visibility
-- Risk score 0–100 with Low / Moderate / High / Extreme tiers
+> *"Point. Scan. Stay safe."*
 
-## Quick start
+Powered by Claude Vision AI. Detects drowning, rip currents, and dangerous wildlife in real time. Free forever.
+
+---
+
+## 🔍 What OceanWatch Detects
+
+### 🏊 Swimmer Safety
+| Detection | Description |
+|-----------|-------------|
+| Person submerged | Head underwater — immediate alert |
+| Face-down floating | Passive face-down position — critical alert |
+| Arm waving | Raised arms / flailing — distress indicator |
+| Distress signal | Any visible call for help |
+| Head count | Tracks every person in the water |
+| Submersion timer | Alerts at 5s warning, 10s critical |
+| Child detection | Identifies children in or near water |
+| Passive floating | Motionless floating — monitoring alert |
+
+### 〰 Water Hazards
+| Detection | Description |
+|-----------|-------------|
+| Rip currents | Discolored channels, wave gaps, seaward foam — confidence rated |
+| Rough surf | Wave height and choppiness assessment |
+| Discolored water | Murky, sediment-filled channels indicating current |
+| Shore break | Dangerous wave conditions at the shore |
+| Seaward foam | Debris/foam being pulled out to sea |
+| Wave height | Flat / small / medium / large classification |
+| Water visibility | Clear / moderate / murky / opaque |
+| Current channels | Narrow bands of seaward-moving water |
+
+### 🐊 Florida Wildlife
+| Animal | Detection Clues |
+|--------|----------------|
+| 🐊 Alligator | Floating log shapes, eyes at waterline, ridged tail, V-wake |
+| 🐊 American Crocodile | Lighter color, narrow snout, south Florida/brackish water |
+| 🦈 Shark | Dorsal fin, underwater shadows, bull sharks in fresh water |
+| 🪼 Jellyfish | Translucent dome shapes near surface, blooms |
+| 🪼 Portuguese Man o' War | Blue/purple float with trailing tentacles |
+| 🐍 Water Moccasin | Dark swimming snake, triangular head, S-curve pattern |
+| 🐟 Stingray | Flat dark shape on sandy bottom near shore |
+| 🦔 Sea Urchins | Spiky shapes on rocks or bottom |
+| 🐠 Barracuda | Long silver fish near swimmers in clear water |
+| 🦭 Other marine animals | Any unidentified marine animal near swimmers |
+
+### ⚡ Conditions & Alerts
+| Feature | Description |
+|---------|-------------|
+| Lighting quality | Assesses visibility for accurate detection |
+| Crowd density | Empty / sparse / moderate / crowded |
+| Risk scoring | 0–100 score with Low / Moderate / High / Extreme tiers |
+| Real-time alerts | Swimmer, water, and wildlife strips appear instantly |
+| Photo capture | Save beach photos directly from the app |
+| Video recording | Record sessions — saves to camera roll |
+| Always free | No subscription, no scan limits, free forever |
+
+---
+
+## 🚀 Live App
+```
+https://lyons.software/oceanwatch
+```
+
+## 📊 Admin Dashboard
+```
+https://lyons.software/admin
+```
+
+---
+
+## Tech Stack
+- **Backend:** Node.js + Express
+- **AI:** Anthropic Claude Vision (`claude-sonnet-4-5`)
+- **Server:** DigitalOcean VPS + Nginx + PM2
+- **SSL:** Let's Encrypt
+
+---
+
+## Quick Deploy
 
 ```bash
-# 1. Install
+# Clone
+git clone https://github.com/roaderunner999/oceanwatch.git
+cd oceanwatch
+
+# Install
 npm install
 
-# 2. Configure
+# Configure
 cp .env.example .env
-# Edit .env — add your ANTHROPIC_API_KEY
+# Add your ANTHROPIC_API_KEY to .env
 
-# 3. Run
-npm start          # production
-npm run dev        # dev with auto-reload
-
-# 4. Open
-# http://localhost:3000
+# Run
+npm start
 ```
 
-## cPanel / Passenger deployment
-Same as RipScan — the server auto-detects Passenger and routes on both `/api` and `/oceanwatch/api`.
+---
 
-## Project structure
-```
-oceanwatch/
-├── server.js               # Express entry — mirrors RipScan
-├── routes/
-│   ├── analyze.js          # Claude Vision + submersion timers
-│   ├── health.js
-│   └── stats.js
-├── middleware/
-│   ├── rateLimiter.js      # Global + daily scan limits
-│   └── auth.js             # Optional CLIENT_SECRET gate
-├── utils/
-│   ├── anthropic.js        # Claude Vision wrapper + prompt
-│   └── validateImage.js    # Image validation
-├── public/
-│   └── index.html          # Single-file frontend
-└── .env.example
-```
+## API Endpoints
 
-## API
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/health` | GET | Server health check |
-| `/api/analyze` | POST | Analyze a frame |
+| `/api/health` | GET | Server health + uptime |
+| `/api/analyze` | POST | Analyze a camera frame |
 | `/api/stats` | GET | Scan stats + history |
-| `/api/debug` | GET | Key + environment info |
+| `/api/debug` | GET | Environment info |
 
-### POST /api/analyze body
-```json
-{
-  "imageData": "<base64 jpeg, no data URL prefix>",
-  "mediaType": "image/jpeg",
-  "sessionId": "sess_abc123",
-  "timestamp": 1704067200000
-}
-```
+---
 
-## iOS migration
-Keep the Node.js backend as-is. Replace the HTML camera with `expo-camera` or `AVFoundation`, send the same `POST /api/analyze` request.
+## Why OceanWatch?
 
-## Disclaimer
-For assisted monitoring only. Never replaces trained lifeguards.
+Two people drowned saving a child in Cocoa Beach, FL. They had no warning, no tools, and no choice but to swim into an active rip current. OceanWatch exists so that never happens again.
+
+**Free. Forever. For everyone.**
+
+---
+
+## ⚠️ Disclaimer
+
+OceanWatch is an AI-assisted monitoring tool. It does **not** replace trained lifeguards or professional water safety supervision. Always swim near a lifeguard. AI detection has limitations — use this app as an additional layer of awareness, not your only source of safety information.
+
+---
+
+*Built with ❤️ on Merritt Island, Florida by Lyons Software*  
+*Powered by Anthropic Claude Vision AI*
