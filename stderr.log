@@ -1,0 +1,662 @@
+ChangeWarning: The onLimitReached configuration option is deprecated and has been removed in express-rate-limit v7. See https://express-rate-limit.github.io/WRN_ERL_DEPRECATED_ON_LIMIT_REACHED/ for more information.
+    at Object.onLimitReached (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:289:13)
+    at wrappedValidations.<computed> [as onLimitReached] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at parseOptions (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:626:16)
+    at rateLimit (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:697:18)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/middleware/rateLimiter.js:15:24)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19) {
+  code: 'WRN_ERL_DEPRECATED_ON_LIMIT_REACHED',
+  help: 'https://express-rate-limit.github.io/WRN_ERL_DEPRECATED_ON_LIMIT_REACHED/'
+}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[ERROR] ReferenceError: res is not defined
+    at Object.skip (/home/bigwalt/public_html/oceanwatch/middleware/rateLimiter.js:26:5)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:704:33
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:27
+    at Layer.handle [as handle_request] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:284:15
+    at router.process_params (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:280:10)
+[ERROR] ReferenceError: res is not defined
+    at Object.skip (/home/bigwalt/public_html/oceanwatch/middleware/rateLimiter.js:26:5)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:704:33
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:27
+    at Layer.handle [as handle_request] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:284:15
+    at router.process_params (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:280:10)
+[ERROR] ReferenceError: res is not defined
+    at Object.skip (/home/bigwalt/public_html/oceanwatch/middleware/rateLimiter.js:26:5)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:704:33
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:27
+    at Layer.handle [as handle_request] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:284:15
+    at router.process_params (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:280:10)
+[ERROR] ReferenceError: res is not defined
+    at Object.skip (/home/bigwalt/public_html/oceanwatch/middleware/rateLimiter.js:26:5)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:704:33
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:27
+    at Layer.handle [as handle_request] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:284:15
+    at router.process_params (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:280:10)
+[ERROR] ReferenceError: res is not defined
+    at Object.skip (/home/bigwalt/public_html/oceanwatch/middleware/rateLimiter.js:26:5)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:704:33
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:27
+    at Layer.handle [as handle_request] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:284:15
+    at router.process_params (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express/lib/router/index.js:280:10)
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[SCAN ERROR] id=5944fc1e-4097-4333-9fb2-e5deb4dbc96e ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKmHzQB1XPZGCqpgNYT"}
+[SCAN ERROR] id=855ac61c-7753-4cf5-b046-2716402182be ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKmq8QVnHDz2Nzvx467"}
+[SCAN ERROR] id=28a367ab-0708-43cc-9212-aa15246698cd ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKna35LbiSnCxxkRsMV"}
+[SCAN ERROR] id=0eea6d10-714f-4706-981b-62c9150e2541 ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKoJZSYQagBBTUvjdxy"}
+[SCAN ERROR] id=941328b8-20ec-4f32-9024-a4d3b3f5a802 ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKp3Q9VT8PFG8QZXXJe"}
+[SCAN ERROR] id=184091a6-f88f-4d1f-bfeb-93635c22eaca ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKpnPXm5M6JBNNhGtDn"}
+[SCAN ERROR] id=5fee4229-5c36-4054-9dab-fd3d7378e5d8 ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKqWw8QeJn4wqY2UmDo"}
+[SCAN ERROR] id=a4af3d75-7d24-4e44-a22f-75e68725b0c2 ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKrG7BmvcEuRfkAarSz"}
+[SCAN ERROR] id=9e409f8b-67b8-442b-87b6-19dd527004ae ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKrzjVXwqXewp4iogds"}
+[SCAN ERROR] id=8e65f6c4-28a7-44e7-a5cc-321d8ad46bd2 ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKsjWV7P3Q399PBUwyG"}
+[SCAN ERROR] id=9edebf9b-6f61-4848-966f-05562d9cb47f ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKtTx8XzVWWdfKL1v3s"}
+[SCAN ERROR] id=f6682a73-47f2-44ff-aae4-5d951c7004d6 ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKuD6SkttxVsWMEe7gj"}
+[SCAN ERROR] id=991dd98a-200b-4981-9a86-a7183caff4f4 ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKuwHTgfbZqWpwuky1L"}
+[SCAN ERROR] id=4bc074b0-e53c-4a29-844f-578c1a513dc4 ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKvgnrJ5igYY1mbC4zN"}
+[SCAN ERROR] id=65402115-1e50-4af3-8603-5c5a26815c3c ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVKvwGFXUp2kkPtHjrBQ"}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[SCAN ERROR] id=c6a61581-0b19-4302-b900-829c86b861ff ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVL9L6mVYpR2Fj4eraVQ"}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[SCAN ERROR] id=3580cb44-6a4b-4a28-9fd1-f308aaa79095 ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVMpwzTxWJgQWLBFFCoa"}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[SCAN ERROR] id=823afafe-830a-4ee1-bba9-a5ed1d7d37bb ip=127.0.0.1 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CaVMxmb7jFU2ndfcCpYG4"}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[SCAN ERROR] id=35f619c4-1e62-4aee-90e2-82c2333c1e0c ip=127.0.0.1 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-sonnet-4-20250514"},"request_id":"req_011CaVP1dfpXWCrHUV3DoQ4k"}
+[SCAN ERROR] id=204fdc72-7e32-41e4-8d3a-963d3bd1aad0 ip=127.0.0.1 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-sonnet-4-20250514"},"request_id":"req_011CaVP2MnNNxFNozRRzfA3M"}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[SCAN ERROR] id=51d07bc3-f9b5-4684-ad93-6a9883841dde ip=127.0.0.1 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-sonnet-4-20250514"},"request_id":"req_011CaVPkjCtoq5QEnbqU4g17"}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[SCAN ERROR] id=a9f6e056-6eb3-4a01-b1b5-cdd63ac0473d ip=127.0.0.1 Expected ',' or ']' after array element in JSON at position 2772 (line 110 column 6)
+[ERROR] SyntaxError: Expected ',' or ']' after array element in JSON at position 2772 (line 110 column 6)
+    at JSON.parse (<anonymous>)
+    at analyzeFrame (/home/bigwalt/public_html/oceanwatch/utils/anthropic.js:107:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/public_html/oceanwatch/routes/analyze.js:99:22
+[SCAN ERROR] id=c7a7a39d-5425-4ba2-aa57-60fcae078d5e ip=127.0.0.1 Expected ',' or ']' after array element in JSON at position 2823 (line 110 column 6)
+[ERROR] SyntaxError: Expected ',' or ']' after array element in JSON at position 2823 (line 110 column 6)
+    at JSON.parse (<anonymous>)
+    at analyzeFrame (/home/bigwalt/public_html/oceanwatch/utils/anthropic.js:107:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/public_html/oceanwatch/routes/analyze.js:99:22
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[SCAN ERROR] id=d36348c2-8bbf-4fda-8adc-1bed41768bb8 ip=127.0.0.1 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-sonnet-4-20250514"},"request_id":"req_011CaWZ69bBFU79YB7V84zaR"}
+[SCAN ERROR] id=485bcba3-4c39-4cc2-87b0-4500ae4498a8 ip=127.0.0.1 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-sonnet-4-20250514"},"request_id":"req_011CaWZ6ToJeXtRzvjyUGhs4"}
+[SCAN ERROR] id=0537cab8-7da4-4b7d-942a-e242e8a7ac29 ip=127.0.0.1 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-sonnet-4-20250514"},"request_id":"req_011CaWZ7a3cv1z2P83Bfj2u5"}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[SCAN ERROR] id=f0476962-f842-485e-8e1b-e962496a4f96 ip=127.0.0.1 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-sonnet-4-20250514"},"request_id":"req_011CaWZN7MveQbY9PotVY1vM"}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[SCAN ERROR] id=b6c0a7c1-baaa-4c36-ae57-ccd20e33d740 ip=127.0.0.1 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-sonnet-4-20250514"},"request_id":"req_011CaWZgVvF5ipRtSx4Hxdkh"}
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/analyze.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/analyze.js:8:30)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/analyze.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/analyze.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/analyze.js:8:30)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/analyze.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/analyze.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/analyze.js:8:30)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/analyze.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/analyze.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/analyze.js:8:30)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/analyze.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/analyze.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/analyze.js:8:30)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/analyze.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/analyze.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/analyze.js:8:30)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/analyze.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/analyze.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/analyze.js:8:30)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/analyze.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/analyze.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/analyze.js:8:30)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/analyze.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/analyze.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/analyze.js:8:30)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/analyze.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/analyze.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/analyze.js:8:30)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/analyze.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/stats.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/stats.js:5:17)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/stats.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/stats.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/stats.js:5:17)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/stats.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/stats.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/stats.js:5:17)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/stats.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+node:internal/modules/cjs/loader:1459
+  throw err;
+  ^
+
+Error: Cannot find module './store'
+Require stack:
+- /home/bigwalt/public_html/oceanwatch/routes/stats.js
+- /home/bigwalt/public_html/oceanwatch/server.js
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1456:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1556:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (/home/bigwalt/public_html/oceanwatch/routes/stats.js:5:17)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1943:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/bigwalt/public_html/oceanwatch/routes/stats.js',
+    '/home/bigwalt/public_html/oceanwatch/server.js',
+    '/usr/local/lsws/fcgi-bin/lsnode.js'
+  ]
+}
+
+Node.js v24.14.1
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[SCAN ERROR] id=1298db8f-b9aa-48f9-a6fb-2ba3ccbba1cd ip=127.0.0.1 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-sonnet-4-20250514"},"request_id":"req_011CaWamCymnKqHnGQSmFHM3"}
+[SCAN ERROR] id=e495b833-cba5-483a-8abb-8ae854f9b381 ip=127.0.0.1 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-sonnet-4-20250514"},"request_id":"req_011CaWamdccJ6gDgcVfRgZSp"}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}
+[SCAN ERROR] id=728c2fbb-1aa6-4796-859f-d0233f9a5546 ip=127.0.0.1 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-sonnet-4-20250514"},"request_id":"req_011CaWb5Hvw1sdru2i2JBLgi"}
+ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+    at Object.xForwardedForHeader (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:185:13)
+    at wrappedValidations.<computed> [as xForwardedForHeader] (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:397:22)
+    at Object.keyGenerator (/home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:658:20)
+    at /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:710:32
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /home/bigwalt/nodevenv/public_html/oceanwatch/24/lib/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+  code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+}

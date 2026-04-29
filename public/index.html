@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>OceanWatch — AI Water Safety</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --safe:#1D9E75;--warn:#D4900A;--danger:#D85A30;--extreme:#E24B4A;
+    --accent:#378ADD;--panel:rgba(4,20,40,0.92);--muted:rgba(180,210,255,0.6);
+    --border:rgba(55,138,221,0.25);--text:#f0f6ff;
+  }
+  html,body{width:100%;height:100%;background:#000;font-family:'DM Sans',sans-serif;color:var(--text);overflow:hidden;-webkit-font-smoothing:antialiased}
+  #app{width:100vw;height:100vh;height:100dvh;display:flex;flex-direction:column;position:relative;overflow:hidden}
+
+  /* ── Camera ── */
+  #camWrap{position:relative;flex:1;background:#000;overflow:hidden}
+  #video{width:100%;height:100%;object-fit:cover;display:block}
+
+  .rc{position:absolute;width:22px;height:22px;border-color:var(--accent);border-style:solid;opacity:.8}
+  .rc.tl{top:18px;left:18px;border-width:2px 0 0 2px}
+  .rc.tr{top:18px;right:18px;border-width:2px 2px 0 0}
+  .rc.bl{bottom:60px;left:18px;border-width:0 0 2px 2px}
+  .rc.br{bottom:60px;right:18px;border-width:0 2px 2px 0}
+
+  #scanRing{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%;border:1.5px solid var(--accent);opacity:0;pointer-events:none;transition:border-color .3s}
+  #scanRing.scanning{animation:pulse-ring 1.6s ease-out infinite}
+  #scanRing.alert{border-color:#E24B4A}
+  @keyframes pulse-ring{0%{transform:translate(-50%,-50%) scale(.4);opacity:.9}100%{transform:translate(-50%,-50%) scale(2.2);opacity:0}}
+
+  /* ── Header — brand only, completely clean ── */
+  #header{position:absolute;top:0;left:0;right:0;z-index:11;background:rgba(4,20,40,0.88);border-bottom:.5px solid var(--border);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  #topBar{display:flex;justify-content:space-between;align-items:center;padding:max(env(safe-area-inset-top,10px),10px) 14px 9px;pointer-events:none}
+  #appTitle{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.12em;color:#fff}
+  #appTitle span{color:var(--accent)}
+  #statusPill{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:20px;background:rgba(55,138,221,.18);border:.5px solid rgba(55,138,221,.4);color:var(--accent);transition:all .3s;pointer-events:none}
+  #statusPill.live{background:rgba(29,158,117,.2);border-color:rgba(29,158,117,.5);color:#5DCAA5}
+  #statusPill.alert{background:rgba(226,75,74,.25);border-color:rgba(226,75,74,.6);color:#F09595;animation:blink .7s step-end infinite}
+  @keyframes blink{50%{opacity:.3}}
+
+  /* ── Alert strips — slide down from header when triggered ── */
+  #alertStrips{position:absolute;left:0;right:0;top:44px;z-index:10;display:flex;flex-direction:column;pointer-events:none}
+  .alert-strip{display:flex;align-items:center;gap:10px;padding:7px 14px;font-size:11px;font-weight:500;line-height:1.3;overflow:hidden;max-height:0;opacity:0;transition:max-height .35s ease,opacity .3s ease,padding .35s ease;pointer-events:none}
+  .alert-strip.show{max-height:60px;opacity:1;pointer-events:auto;padding:7px 14px}
+  .alert-strip-icon{font-size:13px;flex-shrink:0}
+  .alert-strip-text{flex:1}
+  .alert-strip-title{font-family:'Space Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1px}
+  .alert-strip-body{font-size:11px;opacity:.9}
+  #stripSwimmer{background:rgba(180,20,20,0.92);border-bottom:.5px solid rgba(226,75,74,.4);backdrop-filter:blur(10px);color:#ffcccc}
+  #stripWater{background:rgba(140,80,0,0.92);border-bottom:.5px solid rgba(239,159,39,.4);backdrop-filter:blur(10px);color:#ffe8b0}
+
+  /* ── Risk HUD — hugs bottom, expands upward ── */
+  #riskHud{position:absolute;left:0;right:0;bottom:0;z-index:10;cursor:pointer;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column-reverse}
+  /* Expanded panel sits ABOVE the strip, grows upward */
+  #riskExpanded{background:rgba(4,20,40,0.96);border:.5px solid var(--border);border-bottom:none;padding:12px 16px 10px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:none;max-height:220px;overflow-y:auto}
+  #riskExpanded.show{display:block}
+  #riskBarWrap{width:100%;height:3px;background:rgba(255,255,255,.08);overflow:hidden}
+  #riskBarFill{height:100%;width:0%;transition:width .7s ease,background .5s}
+  /* Collapsed strip — always visible, flush to bottom */
+  #riskStrip{display:flex;align-items:center;gap:10px;background:rgba(4,20,40,0.92);border-top:.5px solid var(--border);padding:10px 16px;padding-bottom:max(env(safe-area-inset-bottom,10px),10px);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:border-color .4s;user-select:none}
+  #riskColorBar{width:4px;height:30px;border-radius:2px;flex-shrink:0;transition:background .4s;background:var(--muted)}
+  #riskScoreSmall{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;line-height:1;letter-spacing:-1px;transition:color .4s;color:var(--muted);flex-shrink:0;min-width:38px}
+  #riskMeta{flex:1;overflow:hidden}
+  #riskTierName{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;transition:color .4s;color:var(--muted)}
+  #riskMsgShort{font-size:11px;color:rgba(180,210,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}
+  #riskChevron{font-size:13px;color:var(--muted);transition:transform .3s;flex-shrink:0}
+  #riskChevron.open{transform:rotate(180deg)}
+  #riskMsgFull{font-size:12px;line-height:1.6;color:var(--text);margin-bottom:8px}
+  #riskPersonList{font-size:11px;color:rgba(180,210,255,.65);line-height:1.8}
+  /* Tier colors */
+  #riskHud.low    #riskStrip{border-color:rgba(29,158,117,.5)}
+  #riskHud.low    #riskExpanded{border-color:rgba(29,158,117,.4)}
+  #riskHud.moderate #riskStrip{border-color:rgba(212,144,10,.5)}
+  #riskHud.moderate #riskExpanded{border-color:rgba(212,144,10,.4)}
+  #riskHud.high   #riskStrip{border-color:rgba(216,90,48,.55)}
+  #riskHud.high   #riskExpanded{border-color:rgba(216,90,48,.45)}
+  #riskHud.extreme #riskStrip{border-color:rgba(226,75,74,.65)}
+  #riskHud.extreme #riskExpanded{border-color:rgba(226,75,74,.55)}
+  #riskHud.extreme #riskMsgFull{animation:warn-pulse .9s ease-in-out infinite}
+  @keyframes warn-pulse{0%,100%{opacity:1}50%{opacity:.65}}
+
+  /* ── Person count chip ── */
+  #personChip{position:absolute;left:12px;top:130px;background:var(--panel);border:.5px solid var(--border);border-radius:10px;padding:6px 10px;z-index:8;backdrop-filter:blur(8px);font-family:'Space Mono',monospace;font-size:10px;display:none}
+  #personChip.show{display:block}
+  /* ── Recording badge ── */
+  #recBadge{position:absolute;left:12px;top:166px;background:rgba(226,75,74,.85);border-radius:8px;padding:4px 10px;font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;z-index:8;display:none;align-items:center;gap:5px}
+  #recBadge.show{display:flex}
+  .rec-dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:blink 1s infinite}
+
+
+
+  /* ── Start screen ── */
+  #startScreen{position:absolute;inset:0;background:#000d1a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;z-index:100;text-align:center;overflow-y:auto}
+  #startScreen.hidden{display:none}
+  #logoWrap{font-family:'Space Mono',monospace;font-size:36px;font-weight:700;color:#fff;margin-bottom:6px;animation:logoFade .8s ease forwards}
+  #logoWrap span{color:var(--accent)}
+  .logo-sub{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;color:var(--muted);margin-bottom:28px}
+  @keyframes logoFade{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+  .feature-list{list-style:none;margin-bottom:22px;width:100%;max-width:300px;text-align:left}
+  .feature-list li{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(180,210,255,.75);margin-bottom:9px}
+  .feature-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+  #startBtn{background:var(--accent);color:#fff;border:none;border-radius:14px;padding:15px 40px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.08em;cursor:pointer;width:100%;max-width:300px;transition:all .2s;-webkit-tap-highlight-color:transparent;box-shadow:0 4px 20px rgba(55,138,221,0.35)}
+  #startBtn:active{transform:scale(.97);background:#185FA5}
+  #serverStatus{font-size:11px;margin-top:10px;color:var(--muted);min-height:16px;font-family:'Space Mono',monospace}
+  .disclaimer{margin-top:14px;font-size:10px;color:rgba(180,210,255,.28);line-height:1.5;max-width:280px}
+
+  /* ── Controls bar ── */
+  #controls{background:rgba(4,20,40,0.88);border-top:.5px solid var(--border);padding:8px 20px;padding-bottom:max(env(safe-area-inset-bottom,8px),8px);display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:10;flex-shrink:0;backdrop-filter:blur(10px)}
+  .ctrl-side{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:72px}
+  #intervalSel{background:rgba(255,255,255,.06);border:.5px solid var(--border);border-radius:8px;color:var(--text);font-size:11px;padding:4px 6px;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%}
+  .ctrl-label{font-size:10px;color:var(--muted);letter-spacing:.04em}
+
+  /* ── Scan button ── */
+  #scanBtn{width:72px;height:72px;border-radius:50%;border:2.5px solid var(--accent);background:rgba(55,138,221,.15);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:all .25s;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+  #scanBtn:active{transform:scale(.93)}
+  #scanBtn.state-ready{border-color:var(--accent);background:rgba(55,138,221,.15);animation:btn-breathe 2.5s ease-in-out infinite}
+  @keyframes btn-breathe{0%,100%{box-shadow:0 0 0 0 rgba(55,138,221,0.4)}50%{box-shadow:0 0 0 10px rgba(55,138,221,0)}}
+  #scanBtn.state-scanning{border-color:#E24B4A;background:rgba(226,75,74,.2);animation:btn-scan 1.4s ease-in-out infinite}
+  @keyframes btn-scan{0%,100%{box-shadow:0 0 0 0 rgba(226,75,74,0.5)}50%{box-shadow:0 0 0 14px rgba(226,75,74,0)}}
+  #scanBtn.state-paused{border-color:rgba(180,210,255,.3);background:rgba(255,255,255,.06);animation:none;box-shadow:none}
+  #scanBtnIcon{font-size:22px;line-height:1;transition:all .2s}
+  #scanBtnLabel{font-family:'Space Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.08em;transition:color .2s}
+  #scanBtn.state-ready #scanBtnLabel{color:var(--accent)}
+  #scanBtn.state-scanning #scanBtnLabel{color:#F09595}
+  #scanBtn.state-paused #scanBtnLabel{color:rgba(180,210,255,.45)}
+
+  .ctrl-btn{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;cursor:pointer;color:var(--muted);padding:4px 8px;border-radius:10px;transition:all .2s;min-width:52px;-webkit-tap-highlight-color:transparent}
+  .ctrl-btn:active{background:rgba(255,255,255,.08);transform:scale(.95)}
+  .ctrl-btn svg{width:22px;height:22px}
+  .ctrl-btn span{font-size:10px;letter-spacing:.04em}
+  .ctrl-btn.rec-on{color:#E24B4A}
+
+  #toast{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(200,40,40,.92);color:#fff;font-size:12px;font-family:'Space Mono',monospace;padding:8px 16px;border-radius:12px;white-space:nowrap;z-index:30;display:none;max-width:90vw;text-align:center}
+  #captureCanvas{display:none}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ── Start screen ── -->
+  <div id="startScreen">
+    <div id="logoWrap">OCEAN<span>WATCH</span></div>
+    <div class="logo-sub">AI WATER SAFETY</div>
+    <ul class="feature-list">
+      <li>Live camera analyzed by Claude Vision AI</li>
+      <li>Tracks every person in the water</li>
+      <li>Alerts on submersion, arm waving &amp; distress</li>
+      <li>Optional video recording for parents</li>
+    </ul>
+    <button id="startBtn" onclick="startApp()">Enable Camera</button>
+    <div id="serverStatus"></div>
+    <p class="disclaimer">For assisted monitoring only. Never replace qualified lifeguards. Do not rely solely on this app for water safety decisions.</p>
+  </div>
+
+  <!-- ── Camera view ── -->
+  <div id="camWrap">
+    <video id="video" autoplay playsinline muted></video>
+    <canvas id="captureCanvas"></canvas>
+    <div class="rc tl"></div><div class="rc tr"></div>
+    <div class="rc bl"></div><div class="rc br"></div>
+    <div id="scanRing"></div>
+
+    <!-- Header — brand + status only -->
+    <div id="header">
+      <div id="topBar">
+        <div id="appTitle">OCEAN<span>WATCH</span></div>
+        <div id="statusPill">READY</div>
+      </div>
+    </div>
+
+    <!-- Alert strips — slide down from header when triggered -->
+    <div id="alertStrips">
+      <div class="alert-strip" id="stripSwimmer">
+        <div class="alert-strip-icon">🚨</div>
+        <div class="alert-strip-text">
+          <div class="alert-strip-title">SWIMMER ALERT</div>
+          <div class="alert-strip-body" id="stripSwimmerBody"></div>
+        </div>
+      </div>
+      <div class="alert-strip" id="stripWater">
+        <div class="alert-strip-icon">〰</div>
+        <div class="alert-strip-text">
+          <div class="alert-strip-title">WATER CONDITIONS</div>
+          <div class="alert-strip-body" id="stripWaterBody"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Person count chip -->
+    <div id="personChip">👤 <span id="personCount">0</span> IN WATER</div>
+    <!-- Recording badge -->
+    <div id="recBadge"><div class="rec-dot"></div>REC</div>
+
+    <!-- Risk HUD — hugs bottom, expands upward on tap -->
+    <div id="riskHud" onclick="toggleRiskExpand()">
+      <div id="riskExpanded">
+        <div id="riskMsgFull"></div>
+        <div id="riskPersonList"></div>
+      </div>
+      <div id="riskBarWrap"><div id="riskBarFill"></div></div>
+      <div id="riskStrip">
+        <div id="riskColorBar"></div>
+        <div id="riskScoreSmall">--</div>
+        <div id="riskMeta">
+          <div id="riskTierName">NOT SCANNING</div>
+          <div id="riskMsgShort">Tap scan button to begin</div>
+        </div>
+        <div id="riskChevron">⌃</div>
+      </div>
+    </div>
+
+    <div id="toast"></div>
+  </div>
+
+  <!-- ── Controls bar ── -->
+  <div id="controls">
+    <div class="ctrl-side">
+      <select id="intervalSel" onchange="onIntervalChange()">
+        <option value="5000">5s</option>
+        <option value="10000" selected>10s</option>
+        <option value="15000">15s</option>
+        <option value="20000">20s</option>
+      </select>
+      <span class="ctrl-label">Interval</span>
+    </div>
+
+    <button id="scanBtn" class="state-ready" onclick="toggleScan()">
+      <div id="scanBtnIcon">▶</div>
+      <div id="scanBtnLabel">START</div>
+    </button>
+
+    <div style="display:flex;flex-direction:row;gap:6px;align-items:center">
+      <!-- Photo -->
+      <button class="ctrl-btn" onclick="takePhoto()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+        <span>Photo</span>
+      </button>
+      <!-- Video -->
+      <button class="ctrl-btn" id="recBtn" onclick="toggleRecording()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="23 7 16 12 23 17 23 7"/>
+          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+        </svg>
+        <span id="recBtnLabel">Video</span>
+      </button>
+      <!-- Flip -->
+      <button class="ctrl-btn" onclick="flipCamera()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 4v6h6"/><path d="M23 20v-6h-6"/>
+          <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/>
+        </svg>
+        <span>Flip</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+const API       = '/oceanwatch/api';
+const sessionId = 'sess_' + Math.random().toString(36).slice(2);
+
+let stream          = null;
+let facingMode      = 'environment';
+let scanTimer       = null;
+let isScanning      = false;
+let scanActive      = false;
+let mediaRecorder   = null;
+let recordedChunks  = [];
+let isRecording     = false;
+
+const video         = document.getElementById('video');
+const captureCanvas = document.getElementById('captureCanvas');
+const cctx          = captureCanvas.getContext('2d');
+
+const TIERS = {
+  low     : { color:'#1D9E75', bar:'#1D9E75', name:'LOW RISK',  warning:'✓ Conditions look safe. Always swim near a lifeguard.', cls:'low'      },
+  moderate: { color:'#D4900A', bar:'#EFB020', name:'MODERATE',  warning:'⚠ Some risk detected. Stay alert and monitor swimmers.', cls:'moderate' },
+  high    : { color:'#D85A30', bar:'#E87040', name:'HIGH RISK', warning:'🚨 Distress indicators present. Check swimmers immediately.', cls:'high'  },
+  extreme : { color:'#E24B4A', bar:'#E24B4A', name:'EXTREME',   warning:'🆘 Possible drowning — act immediately!', cls:'extreme'  },
+};
+
+// ── Health check on load ──────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', async () => {
+  const el = document.getElementById('serverStatus');
+  try {
+    const r = await fetch(API + '/health');
+    const d = await r.json();
+    if (d.ok) { el.style.color='#5DCAA5'; el.textContent='✓ Server connected'; }
+    else throw new Error();
+  } catch { el.style.color='#F09595'; el.textContent='✗ Server unreachable — check server is running'; }
+});
+
+// ── Start app ─────────────────────────────────────────────────────────────────
+async function startApp() {
+  const btn = document.getElementById('startBtn');
+  btn.textContent = 'Connecting...';
+  btn.disabled = true;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: facingMode }, width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: false,
+    });
+    video.srcObject = stream;
+    document.getElementById('startScreen').classList.add('hidden');
+  } catch(err) {
+    btn.textContent = 'Enable Camera';
+    btn.disabled = false;
+    showToast('Camera error: ' + err.message);
+  }
+}
+
+// ── Frame capture ─────────────────────────────────────────────────────────────
+function captureFrame() {
+  captureCanvas.width  = video.videoWidth  || 640;
+  captureCanvas.height = video.videoHeight || 480;
+  cctx.drawImage(video, 0, 0, captureCanvas.width, captureCanvas.height);
+  return captureCanvas.toDataURL('image/jpeg', 0.75).replace(/^data:image\/jpeg;base64,/, '');
+}
+
+// ── Scan toggle ───────────────────────────────────────────────────────────────
+function toggleScan() {
+  if (scanActive) { stopScan(); } else { startScan(); }
+}
+
+function startScan() {
+  scanActive = true;
+  setScanBtnState('scanning');
+  document.getElementById('statusPill').className = 'live';
+  document.getElementById('statusPill').textContent = 'LIVE';
+  document.getElementById('scanRing').classList.add('scanning');
+  runScan();
+  const interval = parseInt(document.getElementById('intervalSel').value) || 10000;
+  scanTimer = setInterval(runScan, interval);
+}
+
+function stopScan() {
+  scanActive = false;
+  clearInterval(scanTimer);
+  scanTimer = null;
+  setScanBtnState('paused');
+  document.getElementById('statusPill').className = '';
+  document.getElementById('statusPill').textContent = 'PAUSED';
+  document.getElementById('scanRing').classList.remove('scanning');
+  document.getElementById('scanRing').classList.remove('alert');
+}
+
+function onIntervalChange() {
+  if (scanActive) { clearInterval(scanTimer); const iv = parseInt(document.getElementById('intervalSel').value)||10000; scanTimer = setInterval(runScan, iv); }
+}
+
+// ── API call ──────────────────────────────────────────────────────────────────
+async function runScan() {
+  if (isScanning || !stream) return;
+  isScanning = true;
+
+  let imageData;
+  try { imageData = captureFrame(); } catch { isScanning = false; return; }
+
+  try {
+    const res = await fetch(API + '/analyze', {
+      method : 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Session-ID': sessionId },
+      body   : JSON.stringify({ imageData, mediaType: 'image/jpeg', sessionId, timestamp: Date.now() }),
+    });
+
+    if (!res.ok) { const e = await res.json(); showToast(e.error || 'Server error'); isScanning = false; return; }
+
+    const data = await res.json();
+    if (data.ok) updateUI(data);
+    else showToast(data.error || 'Scan failed');
+
+  } catch(err) {
+    showToast('Network error — is server running?');
+  }
+  isScanning = false;
+}
+
+// ── UI update ─────────────────────────────────────────────────────────────────
+let hudExpanded = false;
+let autoCollapsTimer = null;
+
+function toggleRiskExpand() {
+  hudExpanded = !hudExpanded;
+  document.getElementById('riskExpanded').classList.toggle('show', hudExpanded);
+  document.getElementById('riskStrip').classList.toggle('expanded', hudExpanded);
+  document.getElementById('riskChevron').classList.toggle('open', hudExpanded);
+}
+
+function expandHud(autoCollapse = true) {
+  hudExpanded = true;
+  document.getElementById('riskExpanded').classList.add('show');
+  document.getElementById('riskStrip').classList.add('expanded');
+  document.getElementById('riskChevron').classList.add('open');
+  if (autoCollapse) {
+    clearTimeout(autoCollapsTimer);
+    autoCollapsTimer = setTimeout(() => {
+      hudExpanded = false;
+      document.getElementById('riskExpanded').classList.remove('show');
+      document.getElementById('riskStrip').classList.remove('expanded');
+      document.getElementById('riskChevron').classList.remove('open');
+    }, 8000);
+  }
+}
+
+function updateUI({ result, alerts }) {
+  const tier   = TIERS[result.tier] || TIERS.low;
+  const score  = result.score || 0;
+  const persons = result.persons || [];
+
+  // Risk HUD
+  const hud = document.getElementById('riskHud');
+  hud.className = result.tier || 'low';
+
+  document.getElementById('riskColorBar').style.background = tier.color;
+  document.getElementById('riskScoreSmall').style.color    = tier.color;
+  document.getElementById('riskScoreSmall').textContent    = score;
+  document.getElementById('riskTierName').style.color      = tier.color;
+  document.getElementById('riskTierName').textContent      = tier.name;
+  document.getElementById('riskBarFill').style.width       = score + '%';
+  document.getElementById('riskBarFill').style.background  = tier.color;
+
+  // Short message (collapsed view)
+  const shortMsg = alerts && alerts.length > 0
+    ? '🚨 ' + alerts[0].message
+    : result.summary || tier.warning;
+  document.getElementById('riskMsgShort').textContent = shortMsg;
+
+  // Full expanded content
+  document.getElementById('riskMsgFull').textContent = result.recommendation || tier.warning;
+
+  // Person list + rip current detail in expanded view
+  const lines = [];
+  if (persons.length) {
+    persons.forEach(p => {
+      const flags = [p.submerged && '⚠ SUBMERGED', p.faceDown && '⚠ FACE-DOWN', p.armWaving && '⚠ WAVING', p.distressSignal && '🚨 DISTRESS'].filter(Boolean);
+      lines.push(`${p.id}: ${p.location} ${flags.length ? flags.join(' ') : '✓ OK'}`);
+    });
+  }
+  if (result.ripCurrentDetected) {
+    lines.push(`〰 Rip Current: ${result.ripCurrentSeverity?.toUpperCase()} (${Math.round((result.ripCurrentConfidence||0)*100)}% confidence)`);
+    if (result.ripCurrentLocation) lines.push(`  Location: ${result.ripCurrentLocation}`);
+    if (result.ripCurrentIndicators?.length) lines.push(`  Signs: ${result.ripCurrentIndicators.join(', ')}`);
+  }
+  document.getElementById('riskPersonList').innerHTML = lines.map(l => `<div>${l}</div>`).join('');
+
+  // Auto-expand on alerts or high risk
+  if ((alerts && alerts.length > 0) || score >= 51) {
+    expandHud(true);
+    document.getElementById('statusPill').className = 'alert';
+    document.getElementById('statusPill').textContent = 'ALERT';
+    document.getElementById('scanRing').classList.add('alert');
+    setTimeout(() => {
+      if (scanActive) { document.getElementById('statusPill').className='live'; document.getElementById('statusPill').textContent='LIVE'; }
+      document.getElementById('scanRing').classList.remove('alert');
+    }, 5000);
+  }
+
+  // Person count chip
+  const chip = document.getElementById('personChip');
+  if (result.totalInWater > 0) { chip.classList.add('show'); document.getElementById('personCount').textContent = result.totalInWater; }
+  else { chip.classList.remove('show'); }
+
+  // ── Swimmer alert strip ──
+  const anySubmerged = persons.some(p => p.submerged);
+  const anyFaceDown  = persons.some(p => p.faceDown);
+  const anyWaving    = persons.some(p => p.armWaving);
+  const anyDistress  = persons.some(p => p.distressSignal);
+  const swimmerAlert = anySubmerged || anyFaceDown || anyDistress || anyWaving;
+
+  const stripSwimmer = document.getElementById('stripSwimmer');
+  if (swimmerAlert) {
+    const details = [];
+    persons.forEach(p => {
+      const flags = [p.submerged && 'submerged', p.faceDown && 'face-down', p.armWaving && 'waving', p.distressSignal && 'distress signal'].filter(Boolean);
+      if (flags.length) details.push(flags.join(', '));
+    });
+    document.getElementById('stripSwimmerBody').textContent = details.join(' · ') || 'Swimmer needs attention';
+    stripSwimmer.classList.add('show');
+  } else {
+    stripSwimmer.classList.remove('show');
+  }
+
+  // ── Water alert strip ──
+  const ripSeverity   = result.ripCurrentSeverity || 'none';
+  const isRough       = result.waterConditions === 'rough' || result.waterConditions === 'very_rough';
+  const waterAlert    = ripSeverity !== 'none' || isRough;
+  const waterCritical = ripSeverity === 'confirmed' || ripSeverity === 'likely';
+
+  const stripWater = document.getElementById('stripWater');
+  if (waterAlert) {
+    const wLines = [];
+    if (ripSeverity !== 'none') wLines.push(`Rip current ${ripSeverity} — ${Math.round((result.ripCurrentConfidence||0)*100)}% confidence`);
+    if (result.ripCurrentLocation) wLines.push(result.ripCurrentLocation);
+    if (isRough) wLines.push(`Surf: ${result.waterConditions}`);
+    document.getElementById('stripWaterBody').textContent = wLines.join(' · ');
+    stripWater.classList.add('show');
+  } else {
+    stripWater.classList.remove('show');
+  }
+
+  // Auto-dismiss strips after 10s if no ongoing alert
+  clearTimeout(autoCollapsTimer);
+  if (swimmerAlert || waterAlert) {
+    autoCollapsTimer = setTimeout(() => {
+      if (!scanActive) return;
+      stripSwimmer.classList.remove('show');
+      stripWater.classList.remove('show');
+      positionChip();
+    }, 10000);
+  }
+
+  positionChip();
+  setTimeout(positionChip, 400);
+}
+function positionChip() {
+  const headerH   = document.getElementById('header').getBoundingClientRect().height;
+  const swimShow  = document.getElementById('stripSwimmer').classList.contains('show');
+  const watShow   = document.getElementById('stripWater').classList.contains('show');
+  const stripH    = 46; // each strip is ~46px tall
+  const stripsTotal = (swimShow ? stripH : 0) + (watShow ? stripH : 0);
+  const top = headerH + stripsTotal + 8;
+  document.getElementById('personChip').style.top = top + 'px';
+  document.getElementById('recBadge').style.top   = (top + 36) + 'px';
+}
+
+function setDot(id, state) {
+  const el = document.getElementById(id);
+  if (el) el.className = 'ind-dot ' + state;
+}
+
+function setScanBtnState(state) {
+  const btn   = document.getElementById('scanBtn');
+  const icon  = document.getElementById('scanBtnIcon');
+  const label = document.getElementById('scanBtnLabel');
+  btn.className = 'state-' + state;
+  if (state === 'ready')    { icon.textContent = '▶'; label.textContent = 'START'; }
+  if (state === 'scanning') { icon.textContent = '⏸'; label.textContent = 'PAUSE'; }
+  if (state === 'paused')   { icon.textContent = '▶'; label.textContent = 'RESUME'; }
+}
+
+// ── Recording ─────────────────────────────────────────────────────────────────
+function toggleRecording() {
+  if (isRecording) { stopRecording(); } else { startRecording(); }
+}
+
+function startRecording() {
+  if (!stream) return;
+  recordedChunks = [];
+  const mimeType = MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9'
+                 : MediaRecorder.isTypeSupported('video/webm') ? 'video/webm' : 'video/mp4';
+  try { mediaRecorder = new MediaRecorder(stream, { mimeType }); }
+  catch { mediaRecorder = new MediaRecorder(stream); }
+  mediaRecorder.ondataavailable = e => { if (e.data?.size > 0) recordedChunks.push(e.data); };
+  mediaRecorder.onstop = saveRecording;
+  mediaRecorder.start(1000);
+  isRecording = true;
+  document.getElementById('recBadge').classList.add('show');
+  document.getElementById('recBtn').classList.add('rec-on');
+  document.getElementById('recBtnLabel').textContent = 'Stop';
+}
+
+function stopRecording() {
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+  isRecording = false;
+  document.getElementById('recBadge').classList.remove('show');
+  document.getElementById('recBtn').classList.remove('rec-on');
+  document.getElementById('recBtnLabel').textContent = 'Record';
+}
+
+function saveRecording() {
+  if (!recordedChunks.length) return;
+  const mimeType = mediaRecorder.mimeType;
+  const ext  = mimeType.includes('mp4') ? 'mp4' : 'webm';
+  const filename = `oceanwatch_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.${ext}`;
+  const blob = new Blob(recordedChunks, { type: mimeType });
+  const file = new File([blob], filename, { type: mimeType });
+
+  // Try Web Share API first (iOS/Android — saves direct to photo roll)
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    navigator.share({ files: [file], title: 'OceanWatch Recording' })
+      .then(() => showToast('Video shared / saved'))
+      .catch(err => { if (err.name !== 'AbortError') fallbackDownload(blob, filename); });
+  } else {
+    fallbackDownload(blob, filename);
+  }
+}
+
+// ── Photo ─────────────────────────────────────────────────────────────────────
+function takePhoto() {
+  if (!stream) { showToast('Start camera first'); return; }
+  const canvas = document.createElement('canvas');
+  canvas.width  = video.videoWidth  || 640;
+  canvas.height = video.videoHeight || 480;
+  canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  // Flash effect
+  const flash = document.createElement('div');
+  flash.style.cssText = 'position:fixed;inset:0;background:#fff;opacity:.75;z-index:999;pointer-events:none;transition:opacity .25s';
+  document.body.appendChild(flash);
+  setTimeout(() => { flash.style.opacity='0'; setTimeout(() => flash.remove(), 250); }, 60);
+
+  canvas.toBlob(blob => {
+    const filename = `oceanwatch_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.jpg`;
+    const file = new File([blob], filename, { type: 'image/jpeg' });
+
+    // Web Share API — saves directly to iOS/Android photo roll
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: 'OceanWatch Photo' })
+        .then(() => showToast('Photo saved to camera roll'))
+        .catch(err => { if (err.name !== 'AbortError') fallbackDownload(blob, filename); });
+    } else {
+      fallbackDownload(blob, filename);
+      showToast('Photo saved');
+    }
+  }, 'image/jpeg', 0.92);
+}
+
+// Fallback download for desktop browsers
+function fallbackDownload(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a   = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// ── Flip camera ───────────────────────────────────────────────────────────────
+async function flipCamera() {
+  facingMode = facingMode === 'environment' ? 'user' : 'environment';
+  if (!stream) return;
+  stream.getTracks().forEach(t => t.stop());
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: facingMode }, width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: false,
+    });
+    video.srcObject = stream;
+  } catch { showToast('Could not flip camera'); }
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+let toastTimer = null;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.style.display = 'none'; }, 3500);
+}
+</script>
+</body>
+</html>

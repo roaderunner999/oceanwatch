@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OceanWatch — Mission Control</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+  :root {
+    --bg:       #080f1a;
+    --bg2:      #0d1b2e;
+    --bg3:      #111f33;
+    --panel:    #0f1d30;
+    --border:   rgba(55,138,221,0.18);
+    --accent:   #378ADD;
+    --foam:     #4dc8f0;
+    --safe:     #1D9E75;
+    --warn:     #D4900A;
+    --danger:   #D85A30;
+    --extreme:  #E24B4A;
+    --text:     #e8f4ff;
+    --muted:    rgba(180,210,255,0.5);
+    --mono:     'Space Mono', monospace;
+    --sans:     'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; height: 52px;
+    background: rgba(8,15,26,0.96);
+    border-bottom: .5px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-brand {
+    font-family: var(--mono); font-size: 13px; font-weight: 700;
+    letter-spacing: .14em; color: #fff;
+  }
+  .nav-brand span { color: var(--accent); }
+  .nav-center { display: flex; align-items: center; gap: 10px; }
+  .live-badge {
+    display: flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 9px; font-weight: 700;
+    letter-spacing: .1em; padding: 3px 9px; border-radius: 20px;
+    background: rgba(29,158,117,.15); border: .5px solid rgba(29,158,117,.4);
+    color: #5DCAA5;
+  }
+  .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #5DCAA5; animation: blink 1.2s infinite; }
+  @keyframes blink { 50% { opacity: .2; } }
+  .nav-time { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .btn-nav {
+    font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: .08em;
+    padding: 5px 12px; border-radius: 6px; border: .5px solid var(--border);
+    background: rgba(55,138,221,.1); color: var(--accent); cursor: pointer;
+    transition: all .2s; text-decoration: none; display: inline-block;
+  }
+  .btn-nav:hover { background: rgba(55,138,221,.2); border-color: var(--accent); }
+  .btn-nav.danger { color: var(--extreme); border-color: rgba(226,75,74,.3); background: rgba(226,75,74,.08); }
+  .btn-nav.danger:hover { background: rgba(226,75,74,.18); }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1200px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .page-title { font-family: var(--sans); font-size: 28px; font-weight: 300; color: var(--text); margin-bottom: 4px; }
+  .page-subtitle { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; color: var(--muted); margin-bottom: 28px; }
+
+  /* ── STAT CARDS ── */
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .stat-card {
+    background: var(--panel); border: .5px solid var(--border); border-radius: 12px;
+    padding: 16px 18px; position: relative; overflow: hidden;
+    transition: border-color .3s;
+  }
+  .stat-card:hover { border-color: rgba(55,138,221,.35); }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--card-accent, var(--accent)); opacity: .6;
+  }
+  .stat-label { font-family: var(--mono); font-size: 8px; font-weight: 700; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+  .stat-value { font-family: var(--mono); font-size: 32px; font-weight: 700; line-height: 1; color: var(--text); }
+  .stat-sub { font-size: 11px; color: var(--muted); margin-top: 5px; }
+  .stat-icon { position: absolute; top: 14px; right: 14px; font-size: 18px; opacity: .25; }
+
+  .stat-card.safe   { --card-accent: #1D9E75; }
+  .stat-card.warn   { --card-accent: #D4900A; }
+  .stat-card.danger { --card-accent: #E24B4A; }
+  .stat-card.info   { --card-accent: #378ADD; }
+
+  /* ── CHARTS ROW ── */
+  .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media (max-width: 700px) { .charts-row { grid-template-columns: 1fr; } }
+
+  .panel {
+    background: var(--panel); border: .5px solid var(--border); border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .panel-title {
+    font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: .12em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .panel-badge {
+    font-family: var(--mono); font-size: 8px; padding: 2px 7px; border-radius: 10px;
+    background: rgba(55,138,221,.12); border: .5px solid var(--border); color: var(--accent);
+  }
+
+  /* Donut chart */
+  .donut-wrap { display: flex; align-items: center; gap: 24px; }
+  .donut-svg { flex-shrink: 0; }
+  .donut-legend { display: flex; flex-direction: column; gap: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Bar chart */
+  .bar-chart { display: flex; align-items: flex-end; gap: 12px; height: 140px; padding-top: 20px; position: relative; }
+  .bar-col { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+  .bar-track { width: 100%; flex: 1; display: flex; align-items: flex-end; }
+  .bar-fill {
+    width: 100%; border-radius: 4px 4px 0 0;
+    transition: height .6s ease; min-height: 2px;
+  }
+  .bar-val { font-family: var(--mono); font-size: 10px; font-weight: 700; }
+  .bar-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+
+  /* ── SCAN LOG ── */
+  .log-wrap { margin-bottom: 20px; }
+  .log-header { display: grid; grid-template-columns: 100px 80px 60px 1fr 60px; gap: 8px; padding: 0 12px 8px; font-family: var(--mono); font-size: 8px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; border-bottom: .5px solid var(--border); }
+  .log-rows { display: flex; flex-direction: column; gap: 0; max-height: 320px; overflow-y: auto; }
+  .log-rows::-webkit-scrollbar { width: 3px; }
+  .log-rows::-webkit-scrollbar-track { background: transparent; }
+  .log-rows::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .log-row {
+    display: grid; grid-template-columns: 100px 80px 60px 1fr 60px; gap: 8px;
+    padding: 9px 12px; font-size: 12px; border-bottom: .5px solid rgba(55,138,221,.08);
+    transition: background .15s; align-items: center;
+  }
+  .log-row:hover { background: rgba(55,138,221,.05); }
+  .log-time { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+  .tier-badge {
+    font-family: var(--mono); font-size: 8px; font-weight: 700; letter-spacing: .06em;
+    padding: 2px 7px; border-radius: 4px; text-align: center; text-transform: uppercase;
+  }
+  .tier-low      { background: rgba(29,158,117,.15);  color: #5DCAA5; border: .5px solid rgba(29,158,117,.3); }
+  .tier-moderate { background: rgba(212,144,10,.15);  color: #EFB840; border: .5px solid rgba(212,144,10,.3); }
+  .tier-high     { background: rgba(216,90,48,.15);   color: #E87040; border: .5px solid rgba(216,90,48,.3); }
+  .tier-extreme  { background: rgba(226,75,74,.2);    color: #F09595; border: .5px solid rgba(226,75,74,.4); }
+  .tier-error    { background: rgba(100,100,100,.15); color: #888;    border: .5px solid rgba(100,100,100,.3); }
+  .log-score { font-family: var(--mono); font-size: 12px; font-weight: 700; }
+  .log-summary { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .log-dur { font-family: var(--mono); font-size: 10px; color: var(--muted); text-align: right; }
+  .log-empty { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; }
+
+  /* ── ALERT STATS ── */
+  .alert-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .alert-stat {
+    background: var(--panel); border: .5px solid var(--border); border-radius: 12px;
+    padding: 16px 18px; display: flex; align-items: center; gap: 14px;
+  }
+  .alert-stat-icon { font-size: 24px; flex-shrink: 0; }
+  .alert-stat-val { font-family: var(--mono); font-size: 24px; font-weight: 700; line-height: 1; }
+  .alert-stat-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; margin-top: 3px; }
+
+  /* ── SERVER INFO ── */
+  .server-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .server-chip {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(55,138,221,.07); border: .5px solid var(--border);
+    border-radius: 8px; padding: 6px 12px; font-size: 11px;
+  }
+  .server-chip-label { font-family: var(--mono); font-size: 8px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
+  .server-chip-val { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--accent); }
+
+  /* ── BILLING ── */
+  .billing-panel {
+    background: linear-gradient(135deg, rgba(13,27,46,.9), rgba(15,29,48,.9));
+    border: .5px solid rgba(55,138,221,.25); border-radius: 14px;
+    padding: 22px 24px; margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  @media (max-width: 600px) { .billing-panel { flex-direction: column; align-items: flex-start; } }
+  .billing-title { font-family: var(--sans); font-size: 18px; font-weight: 400; margin-bottom: 6px; }
+  .billing-desc { font-size: 12px; color: var(--muted); line-height: 1.6; max-width: 420px; }
+  .billing-bar-wrap { margin-top: 12px; }
+  .billing-bar-label { font-family: var(--mono); font-size: 9px; letter-spacing: .08em; color: var(--muted); margin-bottom: 5px; display: flex; justify-content: space-between; }
+  .billing-bar-bg { height: 4px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
+  .billing-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--foam)); border-radius: 2px; width: 40%; }
+  .btn-billing {
+    font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .08em;
+    padding: 11px 20px; border-radius: 10px; border: none; cursor: pointer;
+    background: var(--accent); color: #fff; white-space: nowrap; flex-shrink: 0;
+    transition: all .2s; text-decoration: none; display: inline-block;
+  }
+  .btn-billing:hover { background: #2070C0; transform: translateY(-1px); }
+
+  /* ── SECTION DIVIDER ── */
+  .section-gap { margin-bottom: 20px; }
+
+  /* ── REFRESH SPINNER ── */
+  .spinning { animation: spin .8s linear infinite; display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">OCEAN<span>WATCH</span></div>
+  <div class="nav-center">
+    <div class="live-badge"><div class="live-dot"></div>LIVE</div>
+    <div class="nav-time" id="navTime"></div>
+  </div>
+  <div class="nav-right">
+    <button class="btn-nav" onclick="refreshAll()">⟳ Refresh</button>
+    <span class="btn-nav" id="autoRefreshLabel">Auto-refresh in 30s</span>
+    <a href="/oceanwatch/" class="btn-nav">← App</a>
+    <button class="btn-nav danger" onclick="confirmLogout()">Logout</button>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="page-title">Mission Control</div>
+  <div class="page-subtitle" id="pageSubtitle">BIGWALT.AI / OCEANWATCH — REAL-TIME ANALYTICS</div>
+
+  <!-- Stat cards -->
+  <div class="stats-grid">
+    <div class="stat-card info">
+      <div class="stat-icon">📡</div>
+      <div class="stat-label">Total Scans</div>
+      <div class="stat-value" id="statTotal">—</div>
+      <div class="stat-sub">since server start</div>
+    </div>
+    <div class="stat-card safe">
+      <div class="stat-icon">✓</div>
+      <div class="stat-label">Successful</div>
+      <div class="stat-value" id="statSuccess">—</div>
+      <div class="stat-sub" id="statSuccessRate">—% success rate</div>
+    </div>
+    <div class="stat-card warn">
+      <div class="stat-icon">〰</div>
+      <div class="stat-label">Alerts Triggered</div>
+      <div class="stat-value" id="statAlerts">—</div>
+      <div class="stat-sub" id="statAlertsRate">— % of scans</div>
+    </div>
+    <div class="stat-card danger">
+      <div class="stat-icon">⚠</div>
+      <div class="stat-label">Extreme Scans</div>
+      <div class="stat-value" id="statExtreme">—</div>
+      <div class="stat-sub">critical risk level</div>
+    </div>
+    <div class="stat-card info">
+      <div class="stat-icon">⏱</div>
+      <div class="stat-label">Uptime</div>
+      <div class="stat-value" id="statUptime" style="font-size:22px">—</div>
+      <div class="stat-sub">server running</div>
+    </div>
+    <div class="stat-card info">
+      <div class="stat-icon">💾</div>
+      <div class="stat-label">Memory</div>
+      <div class="stat-value" id="statMemory" style="font-size:22px">—</div>
+      <div class="stat-sub">MB heap used</div>
+    </div>
+  </div>
+
+  <!-- Alert breakdown -->
+  <div class="alert-stats-grid section-gap">
+    <div class="alert-stat">
+      <div class="alert-stat-icon">🚨</div>
+      <div>
+        <div class="alert-stat-val" id="statSwimmerAlerts">—</div>
+        <div class="alert-stat-lbl">Swimmer Alerts</div>
+      </div>
+    </div>
+    <div class="alert-stat">
+      <div class="alert-stat-icon">〰</div>
+      <div>
+        <div class="alert-stat-val" id="statRipAlerts">—</div>
+        <div class="alert-stat-lbl">Rip Current Detected</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-row section-gap">
+    <div class="panel">
+      <div class="panel-title">Scan Outcomes</div>
+      <div class="donut-wrap">
+        <svg class="donut-svg" width="130" height="130" viewBox="0 0 130 130">
+          <circle cx="65" cy="65" r="50" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="22"/>
+          <circle id="donutSafe" cx="65" cy="65" r="50" fill="none" stroke="#1D9E75" stroke-width="22"
+            stroke-dasharray="314" stroke-dashoffset="0" stroke-linecap="butt"
+            transform="rotate(-90 65 65)" style="transition:stroke-dashoffset .6s ease"/>
+          <circle id="donutAlert" cx="65" cy="65" r="50" fill="none" stroke="#E24B4A" stroke-width="22"
+            stroke-dasharray="314" stroke-dashoffset="314" stroke-linecap="butt"
+            transform="rotate(-90 65 65)" style="transition:stroke-dashoffset .6s ease"/>
+          <circle id="donutError" cx="65" cy="65" r="50" fill="none" stroke="#555" stroke-width="22"
+            stroke-dasharray="314" stroke-dashoffset="314" stroke-linecap="butt"
+            transform="rotate(-90 65 65)" style="transition:stroke-dashoffset .6s ease"/>
+          <text x="65" y="60" text-anchor="middle" font-family="Space Mono,monospace" font-size="20" font-weight="700" fill="#e8f4ff" id="donutTotal">0</text>
+          <text x="65" y="76" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(180,210,255,.5)">SCANS</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div><span id="legendSafe">Safe (0)</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#E24B4A"></div><span id="legendAlert">Alerts (0)</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#555"></div><span id="legendError">Errors (0)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Risk Level Distribution</div>
+      <div class="bar-chart" id="barChart">
+        <div class="bar-col">
+          <div class="bar-val" id="barValLow" style="color:#1D9E75">0</div>
+          <div class="bar-track"><div class="bar-fill" id="barLow" style="background:#1D9E75;height:0%"></div></div>
+          <div class="bar-lbl">LOW</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-val" id="barValMod" style="color:#D4900A">0</div>
+          <div class="bar-track"><div class="bar-fill" id="barMod" style="background:#D4900A;height:0%"></div></div>
+          <div class="bar-lbl">MOD</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-val" id="barValHigh" style="color:#D85A30">0</div>
+          <div class="bar-track"><div class="bar-fill" id="barHigh" style="background:#D85A30;height:0%"></div></div>
+          <div class="bar-lbl">HIGH</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-val" id="barValExt" style="color:#E24B4A">0</div>
+          <div class="bar-track"><div class="bar-fill" id="barExt" style="background:#E24B4A;height:0%"></div></div>
+          <div class="bar-lbl">EXT</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live scan log -->
+  <div class="panel section-gap">
+    <div class="panel-title">
+      <span>● Live Scan Log <span id="logCount" class="panel-badge">0 entries</span></span>
+      <button class="btn-nav" onclick="refreshAll()">⟳ Refresh</button>
+    </div>
+    <div class="log-header">
+      <span>Time</span><span>Risk</span><span>Score</span><span>Summary</span><span>Duration</span>
+    </div>
+    <div class="log-rows" id="logRows">
+      <div class="log-empty">No scans yet — start monitoring to see data here</div>
+    </div>
+  </div>
+
+  <!-- Billing -->
+  <div class="billing-panel">
+    <div>
+      <div class="billing-title">Anthropic API Billing</div>
+      <div class="billing-desc">View your current balance, usage breakdown, and add credits in the Anthropic console. Each OceanWatch scan costs roughly $0.005–$0.012 per frame depending on scene complexity.</div>
+      <div class="billing-bar-wrap">
+        <div class="billing-bar-label"><span>API Credits</span><span>Click → to view live balance</span></div>
+        <div class="billing-bar-bg"><div class="billing-bar-fill"></div></div>
+      </div>
+    </div>
+    <a href="https://console.anthropic.com" target="_blank" class="btn-billing">View Billing Console ↗</a>
+  </div>
+
+  <!-- Server info -->
+  <div class="panel">
+    <div class="panel-title">Server Info</div>
+    <div class="server-grid" id="serverGrid">
+      <div class="server-chip"><span class="server-chip-label">Endpoint</span><span class="server-chip-val">bigwalt.ai/oceanwatch</span></div>
+      <div class="server-chip"><span class="server-chip-label">Model</span><span class="server-chip-val" id="infoModel">claude-sonnet-4-5</span></div>
+      <div class="server-chip"><span class="server-chip-label">Node Version</span><span class="server-chip-val" id="infoNode">—</span></div>
+      <div class="server-chip"><span class="server-chip-label">Started</span><span class="server-chip-val" id="infoStarted">—</span></div>
+      <div class="server-chip"><span class="server-chip-label">Daily Limit</span><span class="server-chip-val">500 scans / IP</span></div>
+      <div class="server-chip"><span class="server-chip-label">Rate Limit</span><span class="server-chip-val">60 req / min</span></div>
+      <div class="server-chip"><span class="server-chip-label">API Key</span><span class="server-chip-val" id="infoKey">—</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+const API = '/oceanwatch/api';
+let autoTimer = null;
+let autoCountdown = 30;
+
+// ── Clock ──────────────────────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  document.getElementById('navTime').textContent =
+    now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── Auto refresh countdown ─────────────────────────────────────────────────
+function startAutoRefresh() {
+  clearInterval(autoTimer);
+  autoCountdown = 30;
+  autoTimer = setInterval(() => {
+    autoCountdown--;
+    document.getElementById('autoRefreshLabel').textContent = `Auto-refresh in ${autoCountdown}s`;
+    if (autoCountdown <= 0) { refreshAll(); }
+  }, 1000);
+}
+
+// ── Fetch data ─────────────────────────────────────────────────────────────
+async function safeJSON(res) {
+  const text = await res.text();
+  try { return JSON.parse(text); }
+  catch { throw new Error('Server returned HTML instead of JSON — check API path. Got: ' + text.slice(0, 80)); }
+}
+
+async function refreshAll() {
+  document.getElementById('autoRefreshLabel').textContent = 'Refreshing...';
+  try {
+    const [statsRes, healthRes, debugRes] = await Promise.all([
+      fetch(API + '/stats'),
+      fetch(API + '/health'),
+      fetch(API + '/debug'),
+    ]);
+    const stats  = await safeJSON(statsRes);
+    const health = await safeJSON(healthRes);
+    const debug  = await safeJSON(debugRes);
+    renderStats(stats, health, debug);
+  } catch(err) {
+    console.error('Admin fetch error:', err.message);
+    document.getElementById('autoRefreshLabel').textContent = '⚠ ' + err.message.slice(0, 60);
+  }
+  startAutoRefresh();
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function renderStats(data, health, debug) {
+  const s = data.stats || {};
+  const history = data.history || [];
+
+  const total   = s.totalScans   || 0;
+  const success = s.successScans || 0;
+  const errors  = s.errorScans   || 0;
+  const alerts  = s.alertsTriggered || 0;
+  const extreme = s.extremeScans || 0;
+
+  // Stat cards
+  document.getElementById('statTotal').textContent   = total;
+  document.getElementById('statSuccess').textContent = success;
+  document.getElementById('statSuccessRate').textContent = total ? Math.round(success/total*100) + '% success rate' : '—';
+  document.getElementById('statAlerts').textContent  = alerts;
+  document.getElementById('statAlertsRate').textContent = total ? Math.round(alerts/total*100) + '% of scans' : '—';
+  document.getElementById('statExtreme').textContent = extreme;
+
+  // Uptime and memory from health endpoint
+  if (health.uptime)  document.getElementById('statUptime').textContent = health.uptime;
+  if (health.memory)  document.getElementById('statMemory').textContent = health.memory;
+
+  // Alert breakdown — count from history
+  let swimmerCount = 0, ripCount = 0;
+  history.forEach(h => {
+    if (h.alerts > 0) swimmerCount++;
+    if (h.summary && (h.summary.toLowerCase().includes('rip') || h.summary.toLowerCase().includes('current'))) ripCount++;
+  });
+  document.getElementById('statSwimmerAlerts').textContent = swimmerCount;
+  document.getElementById('statRipAlerts').textContent = ripCount;
+
+  // Donut chart
+  const circumference = 314;
+  const safeCount  = success - extreme;
+  const alertCount = alerts;
+  const safePct    = total ? safeCount / total : 0;
+  const alertPct   = total ? Math.min(alertCount / total, 1) : 0;
+  const errorPct   = total ? errors / total : 0;
+
+  const safeArc  = circumference * safePct;
+  const alertArc = circumference * alertPct;
+  const errorArc = circumference * errorPct;
+
+  document.getElementById('donutSafe').style.strokeDashoffset  = circumference - safeArc;
+  document.getElementById('donutAlert').style.strokeDashoffset = circumference - alertArc;
+  document.getElementById('donutError').style.strokeDashoffset = circumference - errorArc;
+  document.getElementById('donutTotal').textContent = total;
+  document.getElementById('legendSafe').textContent  = `Safe (${safeCount})`;
+  document.getElementById('legendAlert').textContent = `Alerts (${alertCount})`;
+  document.getElementById('legendError').textContent = `Errors (${errors})`;
+
+  // Bar chart — count tiers from history
+  const tiers = { low: 0, moderate: 0, high: 0, extreme: 0 };
+  history.forEach(h => { if (tiers[h.tier] !== undefined) tiers[h.tier]++; });
+  const maxTier = Math.max(...Object.values(tiers), 1);
+  document.getElementById('barValLow').textContent  = tiers.low;
+  document.getElementById('barValMod').textContent  = tiers.moderate;
+  document.getElementById('barValHigh').textContent = tiers.high;
+  document.getElementById('barValExt').textContent  = tiers.extreme;
+  document.getElementById('barLow').style.height   = (tiers.low      / maxTier * 100) + '%';
+  document.getElementById('barMod').style.height   = (tiers.moderate / maxTier * 100) + '%';
+  document.getElementById('barHigh').style.height  = (tiers.high     / maxTier * 100) + '%';
+  document.getElementById('barExt').style.height   = (tiers.extreme  / maxTier * 100) + '%';
+
+  // Scan log
+  const logEl = document.getElementById('logRows');
+  document.getElementById('logCount').textContent = history.length + ' entries';
+  if (!history.length) {
+    logEl.innerHTML = '<div class="log-empty">No scans yet — start monitoring to see data here</div>';
+  } else {
+    logEl.innerHTML = history.map(h => {
+      const time = new Date(h.time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+      const scoreColor = h.tier === 'extreme' ? '#F09595' : h.tier === 'high' ? '#E87040' : h.tier === 'moderate' ? '#EFB840' : '#5DCAA5';
+      return `
+        <div class="log-row">
+          <span class="log-time">${time}</span>
+          <span><span class="tier-badge tier-${h.tier}">${h.tier || 'low'}</span></span>
+          <span class="log-score" style="color:${scoreColor}">${h.score}%</span>
+          <span class="log-summary" title="${h.summary}">${h.summary || '—'}</span>
+          <span class="log-dur">${h.durationMs ? (h.durationMs/1000).toFixed(1) + 's' : '—'}</span>
+        </div>`;
+    }).join('');
+  }
+
+  // Server info
+  if (debug.nodeVersion) document.getElementById('infoNode').textContent  = debug.nodeVersion;
+  if (debug.keyPrefix)   document.getElementById('infoKey').textContent   = debug.keyPrefix + '...';
+  if (s.startedAt)       document.getElementById('infoStarted').textContent = new Date(s.startedAt).toLocaleString();
+}
+
+function confirmLogout() {
+  if (confirm('Log out of admin?')) window.location.href = '/oceanwatch/';
+}
+
+// ── Boot ───────────────────────────────────────────────────────────────────
+refreshAll();
+</script>
+</body>
+</html>
