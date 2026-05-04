@@ -31,14 +31,6 @@ Powered by Claude Vision AI. Detects drowning risk, rip currents, marine wildlif
 
 ---
 
-## The Problem
-
-Brevard County is short 45 lifeguards this season. Stands sit empty for miles. In April 2026, two adults drowned at Cocoa Beach while the nearest lifeguard was 3/4 of a mile away. On May 2, 2026, a 17-year-old died and a 12-year-old was hospitalized in critical condition at Lori Wilson Park — a Red Flag day with no guard present.
-
-OceanWatch turns every beachgoer's phone into an AI-powered safety scanner. The more people using it, the safer the beach becomes for everyone.
-
----
-
 ## What It Does
 
 ### 🏊 Swimmer Safety — 8 detections
@@ -64,20 +56,6 @@ OceanWatch turns every beachgoer's phone into an AI-powered safety scanner. The 
 | Wave height | Flat / small / medium / large |
 | Water visibility | Clear / moderate / murky / opaque |
 | Current channels | Narrow bands of seaward-moving water |
-
-### 🐊 Florida Wildlife — 10 species
-| Animal | Detection Clues |
-|--------|----------------|
-| 🐊 Alligator | Floating log shapes, eyes at waterline, ridged tail, V-wake |
-| 🐊 American Crocodile | Lighter color, narrow snout, south Florida / brackish water |
-| 🦈 Shark | Dorsal fin, underwater shadows, bull sharks in rivers / canals |
-| 🪼 Jellyfish | Translucent dome shapes near surface, jellyfish blooms |
-| 🪼 Portuguese Man o' War | Blue/purple float with trailing tentacles |
-| 🐍 Water Moccasin | Dark swimming snake, triangular head, S-curve pattern |
-| 🐟 Stingray | Flat dark shape on sandy bottom near shore |
-| 🦔 Sea Urchins | Spiky shapes on rocks or bottom |
-| 🐠 Barracuda | Long silver fish near swimmers in clear water |
-| 🦭 Other marine animals | Any unidentified marine animal near swimmers |
 
 ### 🚨 Emergency Features
 | Feature | Description |
@@ -182,8 +160,7 @@ pm2 save
 ### Planned Features
 - **Push notifications** — alert nearby users even when their screen is off
 - **Sound alerts** — audio beep/alarm on nearby user alerts so phones wake up
-- **Community safety rings** — physical throw rings at unguarded beaches co-branded with OceanWatch QR code
-- **Drown Zero partnership** — working with Cocoa Beach Rotary Club's Drown Zero initiative
+- **Community safety rings** — physical throw rings at unguarded beaches
 - **Wave / current forecast integration** — NOAA rip current risk data overlaid with AI detections
 - **Alert history** — reviewable log of all hazards detected at a location over time
 
@@ -247,4 +224,4 @@ OceanWatch is an AI-assisted monitoring tool. It does **not** replace trained li
 
 ---
 
-*Lyons Software — Merritt Island, FL*
+*Lyons Software — COCOA BEACH, FL*
