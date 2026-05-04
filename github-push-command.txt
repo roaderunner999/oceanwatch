@@ -1,0 +1,6 @@
+git stash
+git checkout main
+git stash pop
+git add -A
+git commit -m "v1.0.0 README update - Cocoa Beach"
+git push origin main --force
