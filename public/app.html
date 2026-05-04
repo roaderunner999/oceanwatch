@@ -143,8 +143,8 @@
   .disclaimer{margin-top:12px;font-size:10px;color:rgba(180,210,255,.22);line-height:1.55;max-width:280px}
 
   /* ── Controls bar ── */
-  #controls{background:rgba(4,20,40,0.88);border-top:.5px solid var(--border);padding:8px 12px;padding-bottom:max(env(safe-area-inset-bottom,8px),8px);display:flex;align-items:center;justify-content:space-between;gap:6px;z-index:10;flex-shrink:0;backdrop-filter:blur(10px)}
-  .ctrl-side{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:52px}
+  #controls{background:rgba(4,20,40,0.88);border-top:.5px solid var(--border);padding:8px 20px;padding-bottom:max(env(safe-area-inset-bottom,8px),8px);display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:10;flex-shrink:0;backdrop-filter:blur(10px)}
+  .ctrl-side{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:72px}
   #intervalSel{background:rgba(255,255,255,.06);border:.5px solid var(--border);border-radius:8px;color:var(--text);font-size:11px;padding:4px 6px;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%}
   .ctrl-label{font-size:10px;color:var(--muted);letter-spacing:.04em}
 
@@ -162,50 +162,23 @@
   #scanBtn.state-scanning #scanBtnLabel{color:#F09595}
   #scanBtn.state-paused #scanBtnLabel{color:rgba(180,210,255,.45)}
 
-  .ctrl-btn{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;cursor:pointer;color:var(--muted);padding:4px 5px;border-radius:10px;transition:all .2s;min-width:40px;-webkit-tap-highlight-color:transparent}
+  .ctrl-btn{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;cursor:pointer;color:var(--muted);padding:4px 8px;border-radius:10px;transition:all .2s;min-width:52px;-webkit-tap-highlight-color:transparent}
   .ctrl-btn:active{background:rgba(255,255,255,.08);transform:scale(.95)}
-  .ctrl-btn svg{width:20px;height:20px}
-  .ctrl-btn span{font-size:9px;letter-spacing:.04em}
+  .ctrl-btn svg{width:22px;height:22px}
+  .ctrl-btn span{font-size:10px;letter-spacing:.04em}
   .ctrl-btn.rec-on{color:#E24B4A}
 
   #toast{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(200,40,40,.92);color:#fff;font-size:12px;font-family:'Space Mono',monospace;padding:8px 16px;border-radius:12px;white-space:nowrap;z-index:30;display:none;max-width:90vw;text-align:center}
   #captureCanvas{display:none}
 
-  /* ── Nearby User Alert Banner ── */
-  #nearbyAlert{
-    position:absolute;left:0;right:0;top:0;z-index:45;
-    background:rgba(160,10,10,0.97);
-    border-bottom:1.5px solid rgba(255,80,80,0.6);
-    padding:10px 16px 10px;
-    padding-top:max(env(safe-area-inset-top,10px),10px);
-    display:none;flex-direction:column;gap:4px;
-    animation:banner-drop .3s ease;
-  }
-  #nearbyAlert.show{display:flex}
-  @keyframes banner-drop{from{transform:translateY(-100%)}to{transform:translateY(0)}}
-  #nearbyAlert .na-title{
-    font-family:'Space Mono',monospace;font-size:10px;font-weight:700;
-    letter-spacing:.12em;color:#fff;display:flex;align-items:center;gap:8px;
-  }
-  #nearbyAlert .na-pulse{
-    width:8px;height:8px;border-radius:50%;background:#fff;flex-shrink:0;
-    animation:blink .6s step-end infinite;
-  }
-  #nearbyAlert .na-body{font-size:12px;color:rgba(255,220,220,.9);line-height:1.4}
-  #nearbyAlert .na-dist{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,200,200,.65);margin-top:2px}
-  #nearbyAlert .na-close{
-    position:absolute;right:14px;top:50%;transform:translateY(-50%);
-    background:none;border:none;color:rgba(255,255,255,.5);font-size:18px;
-    cursor:pointer;padding:4px;line-height:1;-webkit-tap-highlight-color:transparent;
-  }
-
-  /* ── 911 SOS Button — lives in controls bar, far right ── */
+  /* ── 911 SOS Button ── */
   #sosBtn{
-    width:44px;height:44px;border-radius:50%;
+    position:absolute;right:16px;bottom:108px;
+    width:56px;height:56px;border-radius:50%;
     background:#D42020;border:2.5px solid rgba(255,100,100,0.5);
-    color:#fff;font-family:'Space Mono',monospace;
-    cursor:pointer;flex-shrink:0;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+    color:#fff;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;
+    letter-spacing:.06em;cursor:pointer;z-index:20;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
     -webkit-tap-highlight-color:transparent;
     transition:transform .15s,background .15s;
     animation:sos-pulse 2.8s ease-out infinite;
@@ -214,101 +187,69 @@
   #sosBtn:active{transform:scale(.92);background:#B01010}
   @keyframes sos-pulse{
     0%{box-shadow:0 0 0 0 rgba(212,32,32,0.7)}
-    60%{box-shadow:0 0 0 10px rgba(212,32,32,0)}
+    60%{box-shadow:0 0 0 12px rgba(212,32,32,0)}
     100%{box-shadow:0 0 0 0 rgba(212,32,32,0)}
   }
-  #sosBtn .sos-icon{font-size:13px;line-height:1}
-  #sosBtn .sos-label{font-size:7px;letter-spacing:.1em;font-weight:700}
+  #sosBtn .sos-icon{font-size:16px;line-height:1}
+  #sosBtn .sos-label{font-size:8px;letter-spacing:.1em}
 
-
-  /* ── 911 Confirmation Modal — Apple Emergency SOS style ── */
+  /* ── 911 Modal ── */
   #sosModal{
-    position:absolute;inset:0;background:rgba(0,0,0,.85);z-index:50;
+    position:absolute;inset:0;background:rgba(0,0,0,.82);z-index:50;
     display:none;flex-direction:column;align-items:center;justify-content:flex-end;
     padding-bottom:max(env(safe-area-inset-bottom,20px),20px);
   }
   #sosModal.open{display:flex}
   #sosSheet{
-    width:100%;max-width:420px;
-    background:#0d1f35;
-    border-top:.5px solid rgba(226,75,74,.4);
-    border-radius:22px 22px 0 0;
-    padding:18px 20px 12px;
-    display:flex;flex-direction:column;align-items:center;gap:10px;
-    animation:sheet-up .28s cubic-bezier(.32,0,.67,0);
+    width:100%;max-width:400px;background:#0a1929;
+    border:.5px solid rgba(226,75,74,.45);border-radius:20px 20px 0 0;
+    padding:20px 20px 8px;
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+    animation:sheet-up .25s ease;
   }
-  @keyframes sheet-up{from{transform:translateY(110%)}to{transform:translateY(0)}}
+  @keyframes sheet-up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  .sos-sheet-title{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.12em;color:#F09595;text-transform:uppercase}
+  .sos-location-box{width:100%;background:rgba(255,255,255,.05);border:.5px solid rgba(255,255,255,.12);border-radius:10px;padding:10px 14px;font-family:'Space Mono',monospace;font-size:10px;color:rgba(180,210,255,.7);line-height:1.7;text-align:left}
+  .sos-action-row{display:flex;flex-direction:column;gap:8px;width:100%}
 
-  /* drag handle */
-  .sos-handle{width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,.2);margin-bottom:4px}
-
-  /* title row */
-  .sos-sheet-title{
-    font-family:'Space Mono',monospace;font-size:10px;font-weight:700;
-    letter-spacing:.14em;color:#F09595;text-transform:uppercase;
-  }
-
-  /* GPS coords box */
-  .sos-location-box{
-    width:100%;background:rgba(0,0,0,.3);
-    border:.5px solid rgba(255,255,255,.1);border-radius:12px;
-    padding:10px 14px;font-family:'Space Mono',monospace;
-    font-size:10px;color:rgba(180,210,255,.75);line-height:1.8;text-align:left;
-  }
-
-  /* auto-text confirmation line */
-  .sos-autotext{
-    width:100%;
-    font-family:'Space Mono',monospace;font-size:8.5px;font-weight:700;
-    letter-spacing:.04em;color:#5DCAA5;
-    background:rgba(29,158,117,.1);border:.5px solid rgba(29,158,117,.3);
-    border-radius:8px;padding:7px 12px;line-height:1;text-align:center;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  }
-
-  /* Apple-style swipe slider */
+  /* swipe-to-call */
   .sos-swipe-wrap{
-    position:relative;width:100%;height:62px;
-    background:#C41010;
-    border-radius:31px;overflow:hidden;
+    position:relative;width:100%;height:58px;
+    background:rgba(180,20,20,0.28);border:1px solid rgba(226,75,74,0.5);
+    border-radius:29px;overflow:hidden;
     user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;
   }
   .sos-swipe-track{
-    position:absolute;inset:0;
-    display:flex;align-items:center;justify-content:center;
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
     font-family:'Space Mono',monospace;font-size:11px;font-weight:700;
-    letter-spacing:.1em;color:rgba(255,255,255,.65);
-    pointer-events:none;transition:opacity .15s;padding-left:66px;
+    letter-spacing:.1em;color:rgba(255,160,160,0.75);
+    pointer-events:none;transition:opacity .15s;
   }
-  .sos-swipe-track .arrow-hint{
-    margin-left:6px;font-size:13px;opacity:.7;
-    animation:hint-nudge 1.6s ease-in-out infinite;
-  }
-  @keyframes hint-nudge{0%,100%{transform:translateX(0);opacity:.4}50%{transform:translateX(6px);opacity:.9}}
+  .sos-swipe-track .arrow-hint{margin-left:8px;font-size:14px;animation:hint-nudge 1.6s ease-in-out infinite}
+  @keyframes hint-nudge{0%,100%{transform:translateX(0);opacity:.45}50%{transform:translateX(7px);opacity:1}}
   .sos-swipe-thumb{
-    position:absolute;left:5px;top:5px;bottom:5px;width:52px;
-    background:#fff;border-radius:26px;
+    position:absolute;left:4px;top:4px;bottom:4px;width:50px;
+    background:#D42020;border-radius:25px;
     display:flex;align-items:center;justify-content:center;
-    font-size:22px;cursor:grab;touch-action:none;
-    box-shadow:0 3px 10px rgba(0,0,0,0.5);
+    font-size:20px;cursor:grab;touch-action:none;
+    box-shadow:0 2px 8px rgba(0,0,0,0.4);
   }
   .sos-swipe-thumb.dragging{cursor:grabbing}
   .sos-swipe-fill{
     position:absolute;left:0;top:0;bottom:0;width:0;
-    background:rgba(180,0,0,0.5);border-radius:31px;pointer-events:none;
+    background:rgba(180,20,20,0.45);border-radius:29px;pointer-events:none;
   }
-
-  /* voice fallback */
-  .sos-voice-btn{
-    background:none;border:.5px solid rgba(255,255,255,.15);
-    border-radius:12px;padding:11px;width:100%;
-    font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;
-    color:rgba(180,210,255,.55);cursor:pointer;-webkit-tap-highlight-color:transparent;
+  .sos-sms-btn{
+    background:rgba(255,255,255,.07);color:#f0f6ff;border:.5px solid rgba(255,255,255,.18);
+    border-radius:13px;padding:13px;width:100%;
+    font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.06em;
+    cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s;
   }
+  .sos-sms-btn:active{background:rgba(255,255,255,.14)}
   .sos-cancel-btn{
-    background:none;border:none;color:rgba(180,210,255,.35);
+    background:none;border:none;color:rgba(180,210,255,.45);
     font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.06em;
-    cursor:pointer;padding:8px;-webkit-tap-highlight-color:transparent;
+    cursor:pointer;padding:10px;-webkit-tap-highlight-color:transparent;
   }
 </style>
 </head>
@@ -329,7 +270,7 @@
           <div class="acc-left">
             <span class="acc-icon">🏊</span>
             <span class="acc-title">Swimmer Safety</span>
-            <span class="acc-count">9 detections</span>
+            <span class="acc-count">8 detections</span>
           </div>
           <span class="acc-chevron">⌃</span>
         </div>
@@ -343,7 +284,6 @@
             <span class="acc-chip">⏱ Submersion timer</span>
             <span class="acc-chip">👶 Child detection</span>
             <span class="acc-chip">🌊 Passive floating</span>
-            <span class="acc-chip">🏝 Too far from shore</span>
           </div>
         </div>
       </div>
@@ -354,7 +294,7 @@
           <div class="acc-left">
             <span class="acc-icon">〰</span>
             <span class="acc-title">Water Hazards</span>
-            <span class="acc-count">10 detections</span>
+            <span class="acc-count">8 detections</span>
           </div>
           <span class="acc-chevron">⌃</span>
         </div>
@@ -368,62 +308,43 @@
             <span class="acc-chip">📊 Wave height</span>
             <span class="acc-chip">👁 Water visibility</span>
             <span class="acc-chip">🌊 Current channels</span>
-            <span class="acc-chip">🟤 Red tide</span>
-            <span class="acc-chip">⛈ Severe weather</span>
           </div>
         </div>
       </div>
 
-      <!-- Marine Life -->
+      <!-- Florida Wildlife -->
       <div class="acc-item wildlife" onclick="toggleAcc(this)">
         <div class="acc-header">
           <div class="acc-left">
-            <span class="acc-icon">🦈</span>
-            <span class="acc-title">Marine Life</span>
-            <span class="acc-count">5 species</span>
+            <span class="acc-icon">🐊</span>
+            <span class="acc-title">Florida Wildlife</span>
+            <span class="acc-count">10 species</span>
           </div>
           <span class="acc-chevron">⌃</span>
         </div>
         <div class="acc-body">
           <div class="acc-chips">
+            <span class="acc-chip">🐊 Alligators</span>
+            <span class="acc-chip">🐊 Crocodiles</span>
             <span class="acc-chip">🦈 Sharks</span>
             <span class="acc-chip">🪼 Jellyfish</span>
             <span class="acc-chip">🪼 Man o' War</span>
+            <span class="acc-chip">🐍 Water moccasin</span>
             <span class="acc-chip">🐟 Stingray</span>
+            <span class="acc-chip">🦔 Sea urchins</span>
             <span class="acc-chip">🐠 Barracuda</span>
+            <span class="acc-chip">🦭 Marine animals</span>
           </div>
         </div>
       </div>
 
-      <!-- Vessel Safety -->
+      <!-- Conditions & Features -->
       <div class="acc-item conditions" onclick="toggleAcc(this)">
         <div class="acc-header">
           <div class="acc-left">
-            <span class="acc-icon">⛵</span>
-            <span class="acc-title">Vessel Safety</span>
-            <span class="acc-count">6 detections</span>
-          </div>
-          <span class="acc-chevron">⌃</span>
-        </div>
-        <div class="acc-body">
-          <div class="acc-chips">
-            <span class="acc-chip">🚤 Person overboard</span>
-            <span class="acc-chip">⛵ Capsized vessel</span>
-            <span class="acc-chip">🔥 Vessel fire</span>
-            <span class="acc-chip">💨 Disabled / drifting</span>
-            <span class="acc-chip">⚠️ Boat near swimmers</span>
-            <span class="acc-chip">🌊 Dangerous wake</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Features -->
-      <div class="acc-item conditions" onclick="toggleAcc(this)" style="--accent-color:rgba(55,138,221,.06)">
-        <div class="acc-header" style="background:rgba(55,138,221,.06)">
-          <div class="acc-left">
             <span class="acc-icon">⚡</span>
-            <span class="acc-title" style="color:#378ADD">Features</span>
-            <span class="acc-count">10 features</span>
+            <span class="acc-title">Features</span>
+            <span class="acc-count">8 features</span>
           </div>
           <span class="acc-chevron">⌃</span>
         </div>
@@ -431,13 +352,11 @@
           <div class="acc-chips">
             <span class="acc-chip">📸 Photo capture</span>
             <span class="acc-chip">🎥 Video recording</span>
-            <span class="acc-chip">🆘 911 emergency swipe</span>
-            <span class="acc-chip">📍 GPS auto-sent to 911</span>
-            <span class="acc-chip">📡 Nearby user alerts</span>
             <span class="acc-chip">🔔 Real-time alerts</span>
             <span class="acc-chip">📊 Risk scoring 0–100</span>
             <span class="acc-chip">👥 Crowd density</span>
-            <span class="acc-chip">🔄 Camera flip</span>
+            <span class="acc-chip">🌤 Lighting quality</span>
+            <span class="acc-chip">📍 Location tagging</span>
             <span class="acc-chip">🆓 Always free</span>
           </div>
         </div>
@@ -447,7 +366,6 @@
 
     <button id="startBtn" onclick="startApp()">📷 Open Camera</button>
     <div id="serverStatus"></div>
-    <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;color:rgba(180,210,255,.18);margin-top:6px;">v1.0.0</div>
     <p class="disclaimer">For assisted monitoring only. Never replace qualified lifeguards. Do not rely solely on this app for water safety decisions.</p>
   </div>
 
@@ -484,17 +402,10 @@
         </div>
       </div>
       <div class="alert-strip" id="stripWildlife">
-        <div class="alert-strip-icon" id="stripWildlifeIcon">🦈</div>
+        <div class="alert-strip-icon" id="stripWildlifeIcon">🐊</div>
         <div class="alert-strip-text">
-          <div class="alert-strip-title">MARINE LIFE DETECTED</div>
+          <div class="alert-strip-title">WILDLIFE DETECTED</div>
           <div class="alert-strip-body" id="stripWildlifeBody"></div>
-        </div>
-      </div>
-      <div class="alert-strip" id="stripVessel" style="background:rgba(100,20,140,0.92);border-bottom:.5px solid rgba(180,80,220,.4);backdrop-filter:blur(10px);color:#e8c0ff">
-        <div class="alert-strip-icon">⛵</div>
-        <div class="alert-strip-text">
-          <div class="alert-strip-title">VESSEL ALERT</div>
-          <div class="alert-strip-body" id="stripVesselBody"></div>
         </div>
       </div>
     </div>
@@ -507,6 +418,7 @@
     <!-- Risk HUD — hugs bottom, expands upward on tap -->
     <div id="riskHud" onclick="toggleRiskExpand()">
       <div id="riskExpanded">
+        <div id="riskMsgFull"></div>
         <div id="riskPersonList"></div>
       </div>
       <div id="riskBarWrap"><div id="riskBarFill"></div></div>
@@ -521,43 +433,33 @@
       </div>
     </div>
 
-    <!-- ── Nearby User Alert Banner ── -->
-    <div id="nearbyAlert">
-      <div class="na-title">
-        <div class="na-pulse"></div>
-        🚨 NEARBY OCEANWATCH ALERT
-      </div>
-      <div class="na-body" id="nearbyAlertBody"></div>
-      <div class="na-dist" id="nearbyAlertDist"></div>
-      <button class="na-close" onclick="closeNearbyAlert()">✕</button>
-    </div>
-
     <div id="toast"></div>
-  </div>
 
-    <!-- ── 911 Modal ── -->
+    <!-- ── 911 Emergency Button ── -->
+    <button id="sosBtn" onclick="openSOS()" aria-label="Call 911 Emergency">
+      <span class="sos-icon">🆘</span>
+      <span class="sos-label">911</span>
+    </button>
+
+    <!-- ── 911 Confirmation Modal ── -->
     <div id="sosModal" onclick="handleModalTap(event)">
       <div id="sosSheet">
-        <div class="sos-handle"></div>
-        <div class="sos-sheet-title">🚨 EMERGENCY — WATER RESCUE</div>
-
+        <div class="sos-sheet-title">🚨 Water Emergency?</div>
         <div class="sos-location-box" id="sosLocationBox">📍 Getting your location…</div>
-
-        <div class="sos-autotext" id="sosAutoText">
-          GPS location will be automatically sent to dispatcher
-        </div>
-
-        <div class="sos-swipe-wrap" id="sosSwipeWrap">
-          <div class="sos-swipe-fill" id="sosSwipeFill"></div>
-          <div class="sos-swipe-track" id="sosSwipeTrack">
-            SLIDE TO CALL 911 <span class="arrow-hint">›</span>
+        <div class="sos-action-row">
+          <div class="sos-swipe-wrap" id="sosSwipeWrap">
+            <div class="sos-swipe-fill" id="sosSwipeFill"></div>
+            <div class="sos-swipe-track" id="sosSwipeTrack">
+              SWIPE TO CALL 911 <span class="arrow-hint">›››</span>
+            </div>
+            <div class="sos-swipe-thumb" id="sosSwipeThumb">📞</div>
           </div>
-          <div class="sos-swipe-thumb" id="sosSwipeThumb">📞</div>
+          <button class="sos-sms-btn" onclick="sendSMS()">💬 Text Location to Ocean Rescue</button>
         </div>
-
         <button class="sos-cancel-btn" onclick="closeSOS()">Cancel</button>
       </div>
     </div>
+  </div>
 
   <!-- ── Controls bar ── -->
   <div id="controls">
@@ -576,7 +478,8 @@
       <div id="scanBtnLabel">START</div>
     </button>
 
-    <div style="display:flex;flex-direction:row;gap:2px;align-items:center">
+    <div style="display:flex;flex-direction:row;gap:6px;align-items:center">
+      <!-- Photo -->
       <button class="ctrl-btn" onclick="takePhoto()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
@@ -584,6 +487,7 @@
         </svg>
         <span>Photo</span>
       </button>
+      <!-- Video -->
       <button class="ctrl-btn" id="recBtn" onclick="toggleRecording()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="23 7 16 12 23 17 23 7"/>
@@ -591,16 +495,13 @@
         </svg>
         <span id="recBtnLabel">Video</span>
       </button>
+      <!-- Flip -->
       <button class="ctrl-btn" onclick="flipCamera()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M1 4v6h6"/><path d="M23 20v-6h-6"/>
           <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/>
         </svg>
         <span>Flip</span>
-      </button>
-      <button id="sosBtn" onclick="openSOS()" aria-label="Call 911 Emergency">
-        <span class="sos-icon">🆘</span>
-        <span class="sos-label">911</span>
       </button>
     </div>
   </div>
@@ -651,10 +552,13 @@ window.addEventListener('DOMContentLoaded', async () => {
     else throw new Error();
   } catch { el.style.color='#F09595'; el.textContent='✗ Server unreachable — check server is running'; }
 
-  // Start GPS and WebSocket immediately on page load
-  // so coords are ready if 911 button is tapped before camera opens
-  startGPSWatch();
-  connectWS();
+  function positionSOS() {
+    const ctrl = document.getElementById('controls');
+    const btn  = document.getElementById('sosBtn');
+    if (ctrl && btn) btn.style.bottom = (ctrl.getBoundingClientRect().height + 12) + 'px';
+  }
+  positionSOS();
+  window.addEventListener('resize', positionSOS);
 });
 
 // ── Start app ─────────────────────────────────────────────────────────────────
@@ -669,6 +573,7 @@ async function startApp() {
     });
     video.srcObject = stream;
     document.getElementById('startScreen').classList.add('hidden');
+    startGPSWatch();
   } catch(err) {
     btn.textContent = 'Enable Camera';
     btn.disabled = false;
@@ -727,7 +632,7 @@ async function runScan() {
     const res = await fetch(API + '/analyze', {
       method : 'POST',
       headers: { 'Content-Type': 'application/json', 'X-Session-ID': sessionId },
-      body   : JSON.stringify({ imageData, mediaType: 'image/jpeg', sessionId, timestamp: Date.now(), lat: gpsCoords?.lat || null, lng: gpsCoords?.lng || null }),
+      body   : JSON.stringify({ imageData, mediaType: 'image/jpeg', sessionId, timestamp: Date.now() }),
     });
 
     if (!res.ok) { const e = await res.json(); showToast(e.error || 'Server error'); isScanning = false; return; }
@@ -773,8 +678,6 @@ function updateUI({ result, alerts }) {
   const tier   = TIERS[result.tier] || TIERS.low;
   const score  = result.score || 0;
   const persons = result.persons || [];
-
-  // Auto-raise SOS modal on extreme risk
   maybeAutoRaiseSOS(result.tier);
 
   // Risk HUD
@@ -789,11 +692,14 @@ function updateUI({ result, alerts }) {
   document.getElementById('riskBarFill').style.width       = score + '%';
   document.getElementById('riskBarFill').style.background  = tier.color;
 
-  // Short message in bottom strip
+  // Short message (collapsed view)
   const shortMsg = alerts && alerts.length > 0
     ? '🚨 ' + alerts[0].message
     : result.summary || tier.warning;
   document.getElementById('riskMsgShort').textContent = shortMsg;
+
+  // Full expanded content
+  document.getElementById('riskMsgFull').textContent = result.recommendation || tier.warning;
 
   // Person list + rip current detail in expanded view
   const lines = [];
@@ -810,8 +716,9 @@ function updateUI({ result, alerts }) {
   }
   document.getElementById('riskPersonList').innerHTML = lines.map(l => `<div>${l}</div>`).join('');
 
-  // Update status pill on alerts
+  // Auto-expand on alerts or high risk
   if ((alerts && alerts.length > 0) || score >= 51) {
+    expandHud(true);
     document.getElementById('statusPill').className = 'alert';
     document.getElementById('statusPill').textContent = 'ALERT';
     document.getElementById('scanRing').classList.add('alert');
@@ -869,7 +776,7 @@ function updateUI({ result, alerts }) {
   const stripWildlife = document.getElementById('stripWildlife');
 
   if (result.wildlifeDetected && wildlife.length > 0) {
-    const icons = { shark:'🦈', jellyfish:'🪼', man_o_war:'🪼', stingray:'🐟', barracuda:'🐠', unknown_marine:'⚠️' };
+    const icons = { alligator:'🐊', crocodile:'🐊', shark:'🦈', jellyfish:'🪼', man_o_war:'🪼', water_moccasin:'🐍', stingray:'🐟', sea_urchin:'🦔', barracuda:'🐠', unknown:'⚠️' };
     const topAnimal = wildlife.reduce((a, b) => (b.confidence > a.confidence ? b : a), wildlife[0]);
     const icon = icons[topAnimal.species] || '⚠️';
     document.getElementById('stripWildlifeIcon').textContent = icon;
@@ -883,18 +790,6 @@ function updateUI({ result, alerts }) {
     stripWildlife.classList.add('show');
   } else {
     stripWildlife.classList.remove('show');
-  }
-
-  // ── Vessel alert strip ──
-  const stripVessel = document.getElementById('stripVessel');
-  if (result.vesselEmergency || result.vesselHazard) {
-    const vesselMsg = result.vesselEmergency
-      ? '🚨 ' + (result.vesselNotes || 'Vessel emergency detected')
-      : '⚠️ ' + (result.vesselNotes || 'Vessel hazard near swimmers');
-    document.getElementById('stripVesselBody').textContent = vesselMsg;
-    stripVessel.classList.add('show');
-  } else {
-    stripVessel.classList.remove('show');
   }
   clearTimeout(autoCollapsTimer);
   if (swimmerAlert || waterAlert) {
@@ -943,26 +838,10 @@ function toggleRecording() {
 function startRecording() {
   if (!stream) return;
   recordedChunks = [];
-
-  // iOS Safari only supports mp4 — detect and force it
-  const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-  let mimeType;
-  if (isIOS || MediaRecorder.isTypeSupported('video/mp4')) {
-    mimeType = 'video/mp4';
-  } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
-    mimeType = 'video/webm;codecs=vp9';
-  } else if (MediaRecorder.isTypeSupported('video/webm')) {
-    mimeType = 'video/webm';
-  } else {
-    mimeType = '';
-  }
-
-  try {
-    mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
-  } catch {
-    try { mediaRecorder = new MediaRecorder(stream); } catch(e) { showToast('Recording not supported'); return; }
-  }
-
+  const mimeType = MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9'
+                 : MediaRecorder.isTypeSupported('video/webm') ? 'video/webm' : 'video/mp4';
+  try { mediaRecorder = new MediaRecorder(stream, { mimeType }); }
+  catch { mediaRecorder = new MediaRecorder(stream); }
   mediaRecorder.ondataavailable = e => { if (e.data?.size > 0) recordedChunks.push(e.data); };
   mediaRecorder.onstop = saveRecording;
   mediaRecorder.start(1000);
@@ -977,40 +856,25 @@ function stopRecording() {
   isRecording = false;
   document.getElementById('recBadge').classList.remove('show');
   document.getElementById('recBtn').classList.remove('rec-on');
-  document.getElementById('recBtnLabel').textContent = 'Video';
+  document.getElementById('recBtnLabel').textContent = 'Record';
 }
 
 function saveRecording() {
   if (!recordedChunks.length) return;
-
-  const mimeType = mediaRecorder.mimeType || 'video/mp4';
-  const ext      = mimeType.includes('mp4') ? 'mp4' : 'webm';
+  const mimeType = mediaRecorder.mimeType;
+  const ext  = mimeType.includes('mp4') ? 'mp4' : 'webm';
   const filename = `oceanwatch_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.${ext}`;
-  const blob     = new Blob(recordedChunks, { type: mimeType });
-  const file     = new File([blob], filename, { type: mimeType });
+  const blob = new Blob(recordedChunks, { type: mimeType });
+  const file = new File([blob], filename, { type: mimeType });
 
-  // iOS: Web Share API with files — must be mp4 and user gesture must be active
-  const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-  if (isIOS && navigator.canShare && navigator.canShare({ files: [file] })) {
-    navigator.share({ files: [file], title: 'OceanWatch Recording', text: 'Saved from OceanWatch' })
-      .then(() => showToast('Video saved to camera roll ✓'))
-      .catch(err => {
-        if (err.name !== 'AbortError') showVideoSaveButton(blob, filename);
-      });
+  // Try Web Share API first (iOS/Android — saves direct to photo roll)
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    navigator.share({ files: [file], title: 'OceanWatch Recording' })
+      .then(() => showToast('Video shared / saved'))
+      .catch(err => { if (err.name !== 'AbortError') fallbackDownload(blob, filename); });
   } else {
-    // Android + Desktop: download directly to Downloads folder — clear and reliable
     fallbackDownload(blob, filename);
-    showToast('Video saved to Downloads folder ✓');
   }
-}
-
-function showVideoSaveButton(blob, filename) {
-  const url = URL.createObjectURL(blob);
-  const toast = document.getElementById('toast');
-  toast.innerHTML = `<a href="${url}" download="${filename}" style="color:#fff;text-decoration:underline;" onclick="setTimeout(()=>URL.revokeObjectURL('${url}'),2000)">Tap here to save video</a>`;
-  toast.style.display = 'block';
-  // Don't auto-hide this one — user needs to tap it
-  clearTimeout(toastTimer);
 }
 
 // ── Photo ─────────────────────────────────────────────────────────────────────
@@ -1031,15 +895,14 @@ function takePhoto() {
     const filename = `oceanwatch_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.jpg`;
     const file = new File([blob], filename, { type: 'image/jpeg' });
 
-    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-    if (isIOS && navigator.canShare && navigator.canShare({ files: [file] })) {
+    // Web Share API — saves directly to iOS/Android photo roll
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
       navigator.share({ files: [file], title: 'OceanWatch Photo' })
-        .then(() => showToast('Photo saved to camera roll ✓'))
+        .then(() => showToast('Photo saved to camera roll'))
         .catch(err => { if (err.name !== 'AbortError') fallbackDownload(blob, filename); });
     } else {
-      // Android + Desktop: straight to Downloads — no confusing share sheet
       fallbackDownload(blob, filename);
-      showToast('Photo saved to Downloads folder ✓');
+      showToast('Photo saved');
     }
   }, 'image/jpeg', 0.92);
 }
@@ -1066,336 +929,7 @@ async function flipCamera() {
   } catch { showToast('Could not flip camera'); }
 }
 
-
-// ── 911 SOS System ────────────────────────────────────────────────────────────
-let gpsCoords    = null;
-let gpsWatcher   = null;
-let sosAutoRaised = false;
-
-// Start watching GPS in the background as soon as the app opens
-// ── WebSocket — nearby user alerts ───────────────────────────────────────────
-let ws              = null;
-let wsReconnectTimer = null;
-let nearbyAlertTimer = null;
-
-function connectWS() {
-  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
-  ws = new WebSocket(`${proto}//${location.host}/ws`);
-
-  ws.onopen = () => {
-    console.log('[WS] connected');
-    wsRegister();
-    clearTimeout(wsReconnectTimer);
-  };
-
-  ws.onmessage = (e) => {
-    try {
-      const msg = JSON.parse(e.data);
-      if (msg.type === 'nearby_alert') showNearbyAlert(msg);
-    } catch {}
-  };
-
-  ws.onclose = () => {
-    console.log('[WS] disconnected — reconnecting in 5s');
-    wsReconnectTimer = setTimeout(connectWS, 5000);
-  };
-
-  ws.onerror = () => ws.close();
-}
-
-function wsRegister() {
-  if (!ws || ws.readyState !== WebSocket.OPEN) return;
-  ws.send(JSON.stringify({
-    type      : 'register',
-    sessionId,
-    lat       : gpsCoords?.lat || null,
-    lng       : gpsCoords?.lng || null,
-  }));
-}
-
-function wsUpdateLocation() {
-  if (!ws || ws.readyState !== WebSocket.OPEN) return;
-  if (!gpsCoords) return;
-  // Send full re-register with GPS so server map updates
-  ws.send(JSON.stringify({
-    type      : 'register',
-    sessionId,
-    lat       : gpsCoords.lat,
-    lng       : gpsCoords.lng,
-  }));
-}
-
-function showNearbyAlert(msg) {
-  const icons = { extreme:'🆘', high:'🚨', moderate:'⚠️', low:'👁' };
-  const icon  = icons[msg.tier] || '🚨';
-
-  const parts = [];
-  if (msg.ripCurrent) parts.push(`Rip current ${msg.ripCurrent}`);
-  if (msg.wildlife)   parts.push(`${msg.wildlife.replace(/_/g,' ')} spotted`);
-  if (!parts.length)  parts.push(msg.summary || 'Hazard detected');
-
-  document.getElementById('nearbyAlertBody').textContent = `${icon} ${parts.join(' · ')}`;
-  document.getElementById('nearbyAlertDist').textContent =
-    msg.dist ? `Detected ${msg.dist}m from your location` : 'Detected nearby';
-
-  document.getElementById('nearbyAlert').classList.add('show');
-
-  clearTimeout(nearbyAlertTimer);
-  nearbyAlertTimer = setTimeout(closeNearbyAlert, 12000);
-}
-
-function closeNearbyAlert() {
-  document.getElementById('nearbyAlert').classList.remove('show');
-}
-
-function startGPSWatch() {
-  if (!navigator.geolocation) return;
-  gpsWatcher = navigator.geolocation.watchPosition(
-    pos => {
-      gpsCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude, acc: Math.round(pos.coords.accuracy) };
-      wsUpdateLocation();
-      // If SOS modal is open, refresh coords display live
-      if (document.getElementById('sosModal').classList.contains('open')) {
-        buildLocationBox();
-      }
-    },
-    () => { gpsCoords = null; },
-    { enableHighAccuracy: true, timeout: 10000, maximumAge: 15000 }
-  );
-}
-
-function formatCoords(c) {
-  if (!c) return 'Location unavailable — share your surroundings verbally';
-  const latD = c.lat >= 0 ? 'N' : 'S';
-  const lngD = c.lng >= 0 ? 'E' : 'W';
-  return `${Math.abs(c.lat).toFixed(5)}°${latD}, ${Math.abs(c.lng).toFixed(5)}°${lngD}  (±${c.acc}m)\nmaps.google.com/?q=${c.lat},${c.lng}`;
-}
-
-function buildLocationBox() {
-  const box = document.getElementById('sosLocationBox');
-  if (!box) return;
-
-  if (gpsCoords) {
-    const mapsUrl = `https://maps.google.com/?q=${gpsCoords.lat},${gpsCoords.lng}`;
-    box.innerHTML =
-      `<div style="color:#5DCAA5;font-size:9px;letter-spacing:.08em;margin-bottom:5px">📍 GPS Location</div>` +
-      `<div style="color:#f0f6ff;font-size:11px;margin-bottom:3px">${gpsCoords.lat.toFixed(5)}°N, ${Math.abs(gpsCoords.lng).toFixed(5)}°W</div>` +
-      `<div style="color:rgba(180,210,255,.5);font-size:9px">Accuracy: ±${gpsCoords.acc}m</div>` +
-      `<div style="color:#378ADD;font-size:9px;margin-top:4px;word-break:break-all">${mapsUrl}</div>`;
-  } else {
-    box.innerHTML =
-      `<div style="color:#F09595;font-size:9px;letter-spacing:.06em;margin-bottom:5px">📍 Acquiring location…</div>` +
-      `<div style="color:rgba(180,210,255,.55);font-size:10px;line-height:1.5">Allow location access when prompted.<br>` +
-      `If denied: Settings → Safari → Location → Allow.</div>` +
-      `<div id="gpsRetryWrap" style="margin-top:8px;text-align:center">` +
-      `<button onclick="retryGPS()" style="background:rgba(55,138,221,.2);border:.5px solid rgba(55,138,221,.5);border-radius:8px;padding:5px 16px;font-family:'Space Mono',monospace;font-size:9px;color:#378ADD;cursor:pointer;-webkit-tap-highlight-color:transparent;">Retry Location</button></div>`;
-
-    // Actively request permission now
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          gpsCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude, acc: Math.round(pos.coords.accuracy) };
-          buildLocationBox();
-        },
-        err => {
-          const box2 = document.getElementById('sosLocationBox');
-          if (!box2) return;
-          const denied = err.code === 1; // PERMISSION_DENIED
-          box2.innerHTML =
-            `<div style="color:#F09595;font-size:9px;margin-bottom:5px">📍 ${denied ? 'Location access denied' : 'Location unavailable'}</div>` +
-            `<div style="color:rgba(180,210,255,.55);font-size:10px;line-height:1.7">${denied
-              ? 'Settings → Privacy & Security → Location Services → Safari Websites → While Using'
-              : 'Tell dispatcher: your beach name and nearest landmark'}</div>`;
-        },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-      );
-    }
-  }
-}
-
-function retryGPS() {
-  if (!navigator.geolocation) return;
-  const box = document.getElementById('sosLocationBox');
-  if (box) box.innerHTML = `<div style="color:#EFB020;font-size:9px">📍 Requesting location…</div>`;
-  navigator.geolocation.getCurrentPosition(
-    pos => {
-      gpsCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude, acc: Math.round(pos.coords.accuracy) };
-      buildLocationBox();
-    },
-    err => { buildLocationBox(); },
-    { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
-  );
-}
-
-function openSOS() {
-  document.getElementById('sosModal').classList.add('open');
-  buildLocationBox();
-}
-
-function closeSOS() {
-  document.getElementById('sosModal').classList.remove('open');
-  sosAutoRaised = false;
-}
-
-function handleModalTap(e) {
-  // Tap outside sheet closes modal
-  if (e.target === document.getElementById('sosModal')) closeSOS();
-}
-
-// ── Swipe-to-call 911 gesture ─────────────────────────────────────────────────
-// Must drag thumb >80% across the track to confirm — accidental taps do nothing
-
-(function initSwipe() {
-  let dragging = false;
-  let startX   = 0;
-  let currentX = 0;
-
-  function getThumb()  { return document.getElementById('sosSwipeThumb'); }
-  function getFill()   { return document.getElementById('sosSwipeFill'); }
-  function getWrap()   { return document.getElementById('sosSwipeWrap'); }
-  function getTrack()  { return document.getElementById('sosSwipeTrack'); }
-
-  function trackWidth() {
-    const w = getWrap();
-    return w ? w.getBoundingClientRect().width : 300;
-  }
-
-  function thumbMax() {
-    return trackWidth() - 50 - 4; // wrap width - thumb width - right margin
-  }
-
-  function setThumbPos(px) {
-    const thumb = getThumb();
-    const fill  = getFill();
-    if (!thumb || !fill) return;
-    const clamped = Math.max(0, Math.min(px, thumbMax()));
-    thumb.style.transition = dragging ? 'none' : 'left .25s ease';
-    thumb.style.left = (4 + clamped) + 'px';
-    const pct = clamped / thumbMax();
-    fill.style.width  = (4 + clamped + 25) + 'px'; // fills up to center of thumb
-    // Fade out the text as user drags right
-    const track = getTrack();
-    if (track) track.style.opacity = Math.max(0, 1 - pct * 2);
-    return pct;
-  }
-
-  function onStart(clientX) {
-    const thumb = getThumb();
-    if (!thumb) return;
-    dragging = true;
-    startX   = clientX;
-    const cur = parseFloat(thumb.style.left || '4') - 4;
-    currentX  = cur;
-    thumb.classList.add('dragging');
-  }
-
-  function onMove(clientX) {
-    if (!dragging) return;
-    const delta = clientX - startX;
-    const pct = setThumbPos(currentX + delta);
-    if (pct >= 0.82) {
-      // Haptic if available
-      if (navigator.vibrate) navigator.vibrate([80, 40, 120]);
-      confirmCall();
-    }
-  }
-
-  function onEnd() {
-    if (!dragging) return;
-    dragging = false;
-    getThumb() && getThumb().classList.remove('dragging');
-    // Snap back
-    setThumbPos(0);
-    const track = getTrack();
-    if (track) track.style.opacity = '1';
-  }
-
-  function confirmCall() {
-    dragging = false;
-    const thumb = getThumb();
-    if (thumb) {
-      thumb.classList.remove('dragging');
-      thumb.textContent = '✓';
-      setThumbPos(thumbMax());
-    }
-    setTimeout(() => {
-      // Fire SMS to 911 with GPS coords first (non-blocking)
-      sendSMSSilent();
-      // Then immediately open voice call — dispatcher gets both
-      setTimeout(() => {
-        window.location.href = 'tel:911';
-        closeSOS();
-      }, 400);
-    }, 350);
-  }
-
-  // Touch events
-  document.addEventListener('touchstart', e => {
-    if (e.target.closest('#sosSwipeWrap')) {
-      onStart(e.touches[0].clientX);
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  document.addEventListener('touchmove', e => {
-    if (dragging) { onMove(e.touches[0].clientX); e.preventDefault(); }
-  }, { passive: false });
-
-  document.addEventListener('touchend',    () => onEnd());
-  document.addEventListener('touchcancel', () => onEnd());
-
-  // Mouse events (desktop testing)
-  document.addEventListener('mousedown', e => {
-    if (e.target.closest('#sosSwipeWrap')) onStart(e.clientX);
-  });
-  document.addEventListener('mousemove', e => { if (dragging) onMove(e.clientX); });
-  document.addEventListener('mouseup',   () => onEnd());
-})();
-
-
-
-function buildSMSBody() {
-  const coords = gpsCoords
-    ? `GPS: ${gpsCoords.lat.toFixed(5)}, ${gpsCoords.lng.toFixed(5)} (±${gpsCoords.acc}m) maps.google.com/?q=${gpsCoords.lat},${gpsCoords.lng}`
-    : 'Location unavailable — Cocoa Beach / Brevard County FL';
-  const lastScan = document.getElementById('riskTierName').textContent || '';
-  const lastMsg  = document.getElementById('riskMsgShort').textContent  || '';
-  return encodeURIComponent(
-    `🆘 WATER EMERGENCY — OceanWatch\n${coords}\nHazard: ${lastScan} — ${lastMsg}\nSend ocean rescue immediately.`
-  );
-}
-
-function sendSMS() {
-  window.location.href = `sms:911&body=${buildSMSBody()}`;
-  closeSOS();
-}
-
-// Fire SMS via hidden link without navigating away (used alongside voice call)
-function sendSMSSilent() {
-  try {
-    const a = document.createElement('a');
-    a.href = `sms:911&body=${buildSMSBody()}`;
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => a.remove(), 1000);
-  } catch(e) { /* silent fail — voice call still goes through */ }
-}
-
-function callNow() {
-  window.location.href = 'tel:911';
-  closeSOS();
-}
-
-// Auto-raise SOS modal on EXTREME risk (once per scan session)
-function maybeAutoRaiseSOS(tier) {
-  if (tier === 'extreme' && !sosAutoRaised) {
-    sosAutoRaised = true;
-    openSOS();
-  }
-}
-
-// ── Rip Current Escape Overlay ────────────────────────────────────────────────
+// ── Toast ─────────────────────────────────────────────────────────────────────
 let toastTimer = null;
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -1404,6 +938,128 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => { t.style.display = 'none'; }, 3500);
 }
+
+// ── 911 SOS System ────────────────────────────────────────────────────────────
+let gpsCoords     = null;
+let gpsWatcher    = null;
+let sosAutoRaised = false;
+
+function startGPSWatch() {
+  if (!navigator.geolocation) return;
+  gpsWatcher = navigator.geolocation.watchPosition(
+    pos => { gpsCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude, acc: Math.round(pos.coords.accuracy) }; },
+    () => { gpsCoords = null; },
+    { enableHighAccuracy: true, timeout: 10000, maximumAge: 15000 }
+  );
+}
+
+function buildLocationBox() {
+  const box = document.getElementById('sosLocationBox');
+  if (!box) return;
+  if (gpsCoords) {
+    const url = `https://maps.google.com/?q=${gpsCoords.lat},${gpsCoords.lng}`;
+    box.innerHTML =
+      `<div style="color:#5DCAA5;font-size:9px;letter-spacing:.08em;margin-bottom:4px">📍 LOCATION READY — read to dispatcher:</div>` +
+      `<div style="color:#f0f6ff;margin-bottom:4px">${gpsCoords.lat.toFixed(5)}°N, ${Math.abs(gpsCoords.lng).toFixed(5)}°W</div>` +
+      `<div style="color:rgba(180,210,255,.55);font-size:9px">Accuracy: ±${gpsCoords.acc}m</div>` +
+      `<div style="color:#378ADD;font-size:9px;margin-top:4px;word-break:break-all">${url}</div>`;
+  } else {
+    box.innerHTML =
+      `<div style="color:#F09595;font-size:9px;letter-spacing:.08em;margin-bottom:4px">📍 GETTING LOCATION…</div>` +
+      `<div style="color:rgba(180,210,255,.6);font-size:10px">Tell dispatcher: Cocoa Beach, Brevard County, FL<br>Describe your surroundings.</div>`;
+    navigator.geolocation && navigator.geolocation.getCurrentPosition(
+      pos => { gpsCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude, acc: Math.round(pos.coords.accuracy) }; buildLocationBox(); },
+      () => {},
+      { enableHighAccuracy: true, timeout: 8000 }
+    );
+  }
+}
+
+function openSOS() {
+  document.getElementById('sosModal').classList.add('open');
+  buildLocationBox();
+}
+function closeSOS() {
+  document.getElementById('sosModal').classList.remove('open');
+  sosAutoRaised = false;
+  resetSwipe();
+}
+function handleModalTap(e) {
+  if (e.target === document.getElementById('sosModal')) closeSOS();
+}
+function sendSMS() {
+  const coords = gpsCoords
+    ? `GPS: ${gpsCoords.lat.toFixed(5)}, ${gpsCoords.lng.toFixed(5)} (±${gpsCoords.acc}m) maps.google.com/?q=${gpsCoords.lat},${gpsCoords.lng}`
+    : 'Location unavailable — Cocoa Beach / Brevard County FL';
+  const lastTier = document.getElementById('riskTierName').textContent || '';
+  const lastMsg  = document.getElementById('riskMsgShort').textContent  || '';
+  const body = encodeURIComponent(`🆘 WATER EMERGENCY — OceanWatch\n${coords}\nHazard: ${lastTier} — ${lastMsg}\nPlease send ocean rescue immediately.`);
+  window.location.href = `sms:911&body=${body}`;
+  closeSOS();
+}
+function maybeAutoRaiseSOS(tier) {
+  if (tier === 'extreme' && !sosAutoRaised) { sosAutoRaised = true; openSOS(); }
+}
+
+// ── Swipe-to-call gesture ─────────────────────────────────────────────────────
+(function initSwipe() {
+  let dragging = false, startX = 0, originX = 0;
+
+  function thumb()  { return document.getElementById('sosSwipeThumb'); }
+  function fill()   { return document.getElementById('sosSwipeFill');  }
+  function track()  { return document.getElementById('sosSwipeTrack'); }
+  function wrap()   { return document.getElementById('sosSwipeWrap');  }
+
+  function maxTravel() {
+    const w = wrap(); return w ? w.getBoundingClientRect().width - 50 - 8 : 260;
+  }
+
+  function setPos(px, animate) {
+    const t = thumb(), f = fill(), tr = track();
+    if (!t) return;
+    const clamped = Math.max(0, Math.min(px, maxTravel()));
+    t.style.transition = animate ? 'left .25s ease' : 'none';
+    t.style.left = (4 + clamped) + 'px';
+    if (f) f.style.width = (4 + clamped + 25) + 'px';
+    if (tr) tr.style.opacity = Math.max(0, 1 - (clamped / maxTravel()) * 2);
+    return clamped / maxTravel();
+  }
+
+  function resetSwipe() {
+    dragging = false;
+    setPos(0, true);
+    const tr = track(); if (tr) tr.style.opacity = '1';
+    const t = thumb(); if (t) { t.classList.remove('dragging'); t.textContent = '📞'; }
+  }
+  window.resetSwipe = resetSwipe;
+
+  function onStart(clientX) {
+    const t = thumb(); if (!t) return;
+    dragging = true; startX = clientX;
+    originX = parseFloat(t.style.left || '4') - 4;
+    t.classList.add('dragging');
+  }
+  function onMove(clientX) {
+    if (!dragging) return;
+    const pct = setPos(originX + (clientX - startX), false);
+    if (pct >= 0.82) {
+      dragging = false;
+      if (navigator.vibrate) navigator.vibrate([80, 40, 120]);
+      const t = thumb(); if (t) { t.textContent = '✓'; t.classList.remove('dragging'); }
+      setPos(maxTravel(), false);
+      setTimeout(() => { window.location.href = 'tel:911'; closeSOS(); }, 350);
+    }
+  }
+  function onEnd() { if (dragging) { dragging = false; resetSwipe(); } }
+
+  document.addEventListener('touchstart',  e => { if (e.target.closest('#sosSwipeWrap')) { onStart(e.touches[0].clientX); e.preventDefault(); } }, { passive: false });
+  document.addEventListener('touchmove',   e => { if (dragging) { onMove(e.touches[0].clientX); e.preventDefault(); } }, { passive: false });
+  document.addEventListener('touchend',    onEnd);
+  document.addEventListener('touchcancel', onEnd);
+  document.addEventListener('mousedown',   e => { if (e.target.closest('#sosSwipeWrap')) onStart(e.clientX); });
+  document.addEventListener('mousemove',   e => { if (dragging) onMove(e.clientX); });
+  document.addEventListener('mouseup',     onEnd);
+})();
 </script>
 </body>
 </html>

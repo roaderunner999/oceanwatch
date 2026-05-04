@@ -1,16 +1,14 @@
 'use strict';
 
-// Shared in-memory store — imported by both analyze.js and stats.js
-// This breaks the circular dependency between the two route files
-
 const store = {
   stats: {
-    totalScans    : 0,
-    successScans  : 0,
-    errorScans    : 0,
+    totalScans     : 0,
+    successScans   : 0,
+    errorScans     : 0,
     alertsTriggered: 0,
-    extremeScans  : 0,
-    startedAt     : new Date().toISOString(),
+    extremeScans   : 0,
+    ripDetected    : 0,
+    startedAt      : new Date().toISOString(),
   },
   scanHistory: [],
 };
