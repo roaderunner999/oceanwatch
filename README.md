@@ -4,7 +4,7 @@
 ![Status](https://img.shields.io/badge/status-live-brightgreen?style=flat-square)
 ![Platform](https://img.shields.io/badge/platform-web%20%7C%20iOS%20%7C%20Android-lightgrey?style=flat-square)
 
-**Florida's free AI beach safety app** — built by Lyons Software, Merritt Island FL.
+**Florida's free AI beach safety app** — built by Lyons Software
 
 > *"Point. Scan. Stay safe."*
 
@@ -27,7 +27,6 @@ Powered by Claude Vision AI. Detects drowning risk, rip currents, marine wildlif
 - 📸 Photo and video capture — saves to camera roll (iOS) or Downloads (Android)
 - 📊 Risk scoring 0–100 with four tiers (low / moderate / high / extreme)
 - 💾 Persistent scan history — survives server restarts
-- 📱 Fully responsive — iPhone 13 mini through desktop
 
 ---
 
